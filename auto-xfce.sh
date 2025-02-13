@@ -37,7 +37,7 @@ f_ok () {
 }
 
 #
-#   1. Comprobaciones iniciales.
+#   1. Comprobaciones iniciales
 #═════════════════════════════════════
 
 # Funcion para las comprobaciones iniciales.
@@ -68,7 +68,7 @@ f_comprobaciones_iniciales () {
 }
 
 #
-#   2. Elegir personalizacion.
+#   2. Elegir personalizacion
 #═════════════════════════════════════
 
 # Funcion para validar la personalizacion elegida.
@@ -121,7 +121,7 @@ f_elegir_personalizacion () {
 }
 
 #
-#   3. Actualizar paquetes.
+#   3. Actualizar paquetes
 #═════════════════════════════════════
 
 # Funcion para actualizar paquetes.
@@ -140,7 +140,7 @@ f_actualizar_paquetes () {
 }
 
 #
-#   4. Instalar paquetes.
+#   4. Instalar paquetes
 #═════════════════════════════════════
 
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
@@ -185,7 +185,7 @@ f_instalar_paquetes () {
 }
 
 #
-#   5. Personalizar XFCE.
+#   5. Personalizar XFCE
 #═════════════════════════════════════
 
 # Funcion para personalizar XFCE.
