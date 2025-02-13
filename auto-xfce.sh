@@ -1,9 +1,9 @@
 #!/bin/sh
-# Descripcion: Script para autoconfigurar Debian XFCE, instalando paquetes y personalizaciones
+# Descripcion: Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/)
 # Autor: Alex Gracia
-# Version: 1.0
-# URL: https://github.com/AlexGracia
-# Requisitos: paquete wget y paqueteria APT
+# Version: 0.1.1
+# Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
+# URL: https://github.com/AlexGracia/Auto-xfce
 #══════════════════════════════════════
 
 # Variables globales
