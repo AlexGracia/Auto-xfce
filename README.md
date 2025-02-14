@@ -1,4 +1,4 @@
-# Auto XFCE
+# Auto-xfce
 Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/).
 
 ## Requisitos
