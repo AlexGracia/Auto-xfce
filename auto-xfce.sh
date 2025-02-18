@@ -8,12 +8,8 @@
 
 # Variables globales
 personalizacion=$1
-paquetes_frecuentes="evince galculator gnome-boxes mousepad network-manager photoflare p7zip-full p7zip-rar redshift redshift-gtk gthumb sakura thunar-archive-plugin ufw vlc xfce4 xfce4-whiskermenu-plugin zram-tools"
-paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager p7zip-full p7zip-rar pandoc qpdf redshift redshift-gtk sakura sd ufw vlc xfce4 zram-tools"
-# OnlyOffice: https://youtu.be/UQanxlQh_bY
-# https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
-# Firefox: https://support.mozilla.org/en-US/kb/install-firefox-linux
-# Auto-cpufreq: https://github.com/AdnanHodzic/auto-cpufreq
+paquetes_frecuentes="evince galculator gnome-boxes mousepad network-manager photoflare p7zip-full p7zip-rar redshift redshift-gtk gthumb sakura sudo thunar-archive-plugin ufw vlc xfce4 xfce4-whiskermenu-plugin zram-tools"
+paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager p7zip-full p7zip-rar pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 zram-tools"
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
@@ -144,16 +140,47 @@ f_actualizar_paquetes () {
 #═════════════════════════════════════
 
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
+# URL: https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
 f_onlyoffice () {
-# onlyoffice-desktopeditors
+    # Añadir repositorio.
+    mkdir -p -m 700 ~/.gnupg
+    gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+    chmod 644 /tmp/onlyoffice.gpg
+    chown root:root /tmp/onlyoffice.gpg
+    mv /tmp/onlyoffice.gpg /usr/share/keyrings/onlyoffice.gpg
+    echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | tee -a /etc/apt/sources.list.d/onlyoffice.list
+
+    # Actualizar lista de paquetes.
+    apt update
+
+    # Instalar OnlyOffice.
+    apt install onlyoffice-desktopeditors
+
     if [ $? != 0 ]; then
         f_error "Problemas con la instalacion de OnlyOffice."
     fi
 }
 
 # Funcion para instalar Firefox, desde su repositorio oficial.
+# URL: https://support.mozilla.org/en-US/kb/install-firefox-linux
 f_firefox () {
-# firefox firefox-l10n-es-es
+    # Añadir repositorio.
+    install -d -m 0755 /etc/apt/keyrings
+    wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+    gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
+    echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+    echo '
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+' | tee /etc/apt/preferences.d/mozilla
+
+    # Actualizar lista de paquetes.
+    apt update
+
+    # Instalar Firefox.
+    apt install firefox firefox-l10n-es-es
+
     if [ $? != 0 ]; then
         f_error "Problemas con la instalacion de Firefox."
     fi
@@ -165,17 +192,20 @@ f_instalar_paquetes () {
 
     # Instalar paquetes.
     if [ $personalizacion = "f" ]; then
-        echo $paquetes_frecuentes
-#        apt install $paquetes_frecuentes
+        apt install $paquetes_frecuentes
+
+        if [ $? != 0 ]; then
+            f_error
+        fi
+
         # Instalar OnlyOffice.
         f_onlyoffice
     else
-        echo $paquetes_infrecuentes
-#        apt install $paquetes_infrecuentes
-    fi
+        apt install $paquetes_infrecuentes
 
-    if [ $? != 0 ]; then
-        f_error
+        if [ $? != 0 ]; then
+            f_error
+        fi
     fi
 
     # Instalar Firefox.
@@ -229,7 +259,7 @@ f_iniciar () {
 ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝      ╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
 
     # Ejecucion de funciones.
-#    f_comprobaciones_iniciales
+    f_comprobaciones_iniciales
 
     f_elegir_personalizacion
 
