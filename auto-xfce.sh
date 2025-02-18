@@ -154,7 +154,7 @@ f_onlyoffice () {
     apt update
 
     # Instalar OnlyOffice.
-    apt install onlyoffice-desktopeditors
+    apt install -y onlyoffice-desktopeditors
 
     if [ $? != 0 ]; then
         f_error "Problemas con la instalacion de OnlyOffice."
@@ -179,7 +179,7 @@ Pin-Priority: 1000
     apt update
 
     # Instalar Firefox.
-    apt install firefox firefox-l10n-es-es
+    apt install -y firefox firefox-l10n-es-es
 
     if [ $? != 0 ]; then
         f_error "Problemas con la instalacion de Firefox."
@@ -192,7 +192,7 @@ f_instalar_paquetes () {
 
     # Instalar paquetes.
     if [ $personalizacion = "f" ]; then
-        apt install $paquetes_frecuentes
+        apt install -y $paquetes_frecuentes
 
         if [ $? != 0 ]; then
             f_error
@@ -201,7 +201,7 @@ f_instalar_paquetes () {
         # Instalar OnlyOffice.
         f_onlyoffice
     else
-        apt install $paquetes_infrecuentes
+        apt install -y $paquetes_infrecuentes
 
         if [ $? != 0 ]; then
             f_error
@@ -259,13 +259,13 @@ f_iniciar () {
 ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝      ╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
 
     # Ejecucion de funciones.
-    f_comprobaciones_iniciales
+#    f_comprobaciones_iniciales
 
     f_elegir_personalizacion
 
 #    f_actualizar_paquetes
 
-    f_instalar_paquetes
+#    f_instalar_paquetes
 
     f_personalizar_xfce
 }
