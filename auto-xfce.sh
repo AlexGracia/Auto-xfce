@@ -49,7 +49,7 @@ f_comprobaciones_iniciales () {
 
     # Comprobar la red.
     echo "Comprobando la conexion de red ..."
-    ping github.com -c 1 -s 1 -q > /dev/null 2> /dev/null
+    ping 1.1.1.1 -c 1 -s 1 -q > /dev/null 2> /dev/null
     if [ $? != 0 ]; then
         f_error "Debes tener conexion de red."
     fi
