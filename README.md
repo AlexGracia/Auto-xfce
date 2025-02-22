@@ -20,3 +20,6 @@ Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/).
 - [x] 3. Actualizar paquetes
 - [x] 4. Instalar paquetes
 - [ ] 5. Personalizar XFCE
+    - [ ] 5.1. Seguridad
+    - [ ] 5.2. Servicios
+    - [ ] 5.3. Estilo
