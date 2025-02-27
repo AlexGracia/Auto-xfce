@@ -215,12 +215,43 @@ f_instalar_paquetes () {
 }
 
 #
-#   5. Personalizar XFCE
+#   5. Configurar seguridad
+#═════════════════════════════════════
+
+# Funcion para configurar la seguridad.
+f_configurar_seguridad () {
+    f_titulo "Configurar seguridad     " 5
+
+    # Configurar sudo.
+    cd /etc/sudoers.d/
+    echo "# Pedir contraseña root, por cada comando sudo" > reglas-personalizadas
+    echo "Defaults timestamp_timeout=0" >> reglas-personalizadas
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    # Configurar ufw.
+    ufw default deny incoming
+    ufw default deny outgoing
+    ufw allow out 'WWW Full'
+    ufw allow out DNS
+    ufw enable
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   7. Personalizar XFCE
 #═════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 5
+    f_titulo "Personalizando XFCE      " 7
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -266,6 +297,8 @@ f_iniciar () {
 #    f_actualizar_paquetes
 
 #    f_instalar_paquetes
+
+    f_configurar_seguridad
 
     f_personalizar_xfce
 }
