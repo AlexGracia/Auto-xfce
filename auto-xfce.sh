@@ -14,7 +14,7 @@ paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicvi
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 5)"
+    echo "  $1 ($2 de 7)"
     echo "══════════════════════════════════════"
 }
 
@@ -220,7 +220,7 @@ f_instalar_paquetes () {
 
 # Funcion para configurar la seguridad.
 f_configurar_seguridad () {
-    f_titulo "Configurar seguridad     " 5
+    f_titulo "Configurando seguridad   " 5
 
     # Configurar sudo.
     cd /etc/sudoers.d/
@@ -237,6 +237,24 @@ f_configurar_seguridad () {
     ufw allow out 'WWW Full'
     ufw allow out DNS
     ufw enable
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   6. Configurar servicios
+#═════════════════════════════════════
+
+# Funcion para configurar los servicios.
+f_configurar_servicios () {
+    f_titulo "Configurando servicios   " 6
+
+    # Deshabilitar servicio de bluetooth.
+    systemctl disable bluetooth
 
     if [ $? != 0 ]; then
         f_error
@@ -298,7 +316,9 @@ f_iniciar () {
 
 #    f_instalar_paquetes
 
-    f_configurar_seguridad
+#    f_configurar_seguridad
+
+    f_configurar_servicios
 
     f_personalizar_xfce
 }
