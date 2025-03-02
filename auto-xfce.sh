@@ -1,7 +1,7 @@
 #!/bin/sh
 # Descripcion: Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/)
 # Autor: Alex Gracia
-# Version: 0.6.0
+# Version: 0.7.0
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
 #══════════════════════════════════════
