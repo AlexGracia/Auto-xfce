@@ -14,7 +14,7 @@ paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicvi
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 8)"
+    echo "  $1 ($2 de 9)"
     echo "══════════════════════════════════════"
 }
 
@@ -271,7 +271,7 @@ f_configurar_servicios () {
 #   7. Configurar red
 #═════════════════════════════════════
 
-# Funcion para configurar los servicios.
+# Funcion para configurar la red.
 f_configurar_red () {
     f_titulo "Configurando red         " 7
 
@@ -286,12 +286,30 @@ f_configurar_red () {
 }
 
 #
-#   8. Personalizar XFCE
+#   8. Configurar swap
+#═════════════════════════════════════
+
+# Funcion para configurar el swap.
+f_configurar_swap () {
+    f_titulo "Configurando swap        " 8
+
+    # Configurar 25% de RAM.
+    sed -i 's/#PERCENT=50/PERCENT=25/' /etc/default/zramswap
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   9. Personalizar XFCE
 #═════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 8
+    f_titulo "Personalizando XFCE      " 9
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -342,7 +360,9 @@ f_iniciar () {
 
 #    f_configurar_servicios
 
-    f_configurar_red
+#    f_configurar_red
+
+    f_configurar_swap
 
     f_personalizar_xfce
 }
