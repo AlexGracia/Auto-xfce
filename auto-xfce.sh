@@ -14,7 +14,7 @@ paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicvi
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 7)"
+    echo "  $1 ($2 de 8)"
     echo "══════════════════════════════════════"
 }
 
@@ -268,12 +268,30 @@ f_configurar_servicios () {
 }
 
 #
-#   7. Personalizar XFCE
+#   7. Configurar red
+#═════════════════════════════════════
+
+# Funcion para configurar los servicios.
+f_configurar_red () {
+    f_titulo "Configurando red         " 7
+
+    # Comentar las interfaces de red, para gestionarlas manualmente.
+    sed -i '/^$/b; /^#/b; s/^/#/' /etc/network/interfaces
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   8. Personalizar XFCE
 #═════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 7
+    f_titulo "Personalizando XFCE      " 8
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -322,7 +340,9 @@ f_iniciar () {
 
 #    f_configurar_seguridad
 
-    f_configurar_servicios
+#    f_configurar_servicios
+
+    f_configurar_red
 
     f_personalizar_xfce
 }
