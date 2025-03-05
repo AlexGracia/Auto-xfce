@@ -3,7 +3,7 @@
 ![plataforma](https://img.shields.io/badge/plataforma-linux-%23FCC624?style=flat-square&logo=linux)
 ![version](https://img.shields.io/badge/%E2%9A%A0%EF%B8%8F%20version-0.8.0-%23FCC624?style=flat-square)
 
-Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/).
+Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuraciones y personalizaciones.
 
 > [!WARNING]
 > En construcción, cuidado (para, siente y decide).

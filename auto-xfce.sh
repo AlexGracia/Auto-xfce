@@ -1,5 +1,5 @@
 #!/bin/sh
-# Descripcion: Script que instala paquetes y personaliza [XFCE](https://www.xfce.org/)
+# Descripcion: Script que instala XFCE mínimo, paquetes, configuraciones y personalizaciones.
 # Autor: Alex Gracia
 # Version: 0.8.0
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
