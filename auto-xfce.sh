@@ -60,6 +60,17 @@ f_comprobaciones_iniciales () {
         f_error "Debes ser usuario root."
     fi
 
+    # Comprobar el paquete wget.
+    echo "Comprobando el paquete wget ..."
+    wget -h > /dev/null
+    # Intentar instalar si falta.
+    if [ $? != 0 ]; then
+        apt install -y wget
+        if [ $? != 0 ]; then
+            f_error "Problemas con la instalacion de wget."
+        fi
+    fi
+
     f_ok
 }
 
