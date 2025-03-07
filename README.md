@@ -23,4 +23,5 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [x] 6. Configurar servicios
 - [x] 7. Configurar red
 - [x] 8. Configurar swap
-- [ ] 9. Personalizar XFCE
+- [x] 9. Configurar autoinicio
+- [ ] 10. Personalizar XFCE
