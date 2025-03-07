@@ -4,7 +4,7 @@
 # Version: 0.9.0
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
-#══════════════════════════════════════
+#════════════════════════════════════════
 
 # Variables globales
 personalizacion=$1
@@ -34,11 +34,11 @@ f_ok () {
 
 #
 #   1. Comprobaciones iniciales
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para las comprobaciones iniciales.
 f_comprobaciones_iniciales () {
-    f_titulo "Comprobaciones iniciales " 1
+    f_titulo "Comprobaciones iniciales  " 1
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
@@ -76,7 +76,7 @@ f_comprobaciones_iniciales () {
 
 #
 #   2. Elegir personalizacion
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para validar la personalizacion elegida.
 f_validar_personalizacion () {
@@ -100,7 +100,7 @@ f_validar_personalizacion () {
 # Funcion para elegir personalizacion,
 # si no se eligio previamente en la ejecucion del script.
 f_elegir_personalizacion () {
-    f_titulo "Eligiendo personalizacion" 2
+    f_titulo "Eligiendo personalizacion " 2
 
     # No elegir manualmente personalizacion,
     # si ya se ha elegido en la ejecucion del script.
@@ -129,11 +129,11 @@ f_elegir_personalizacion () {
 
 #
 #   3. Actualizar paquetes
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para actualizar paquetes.
 f_actualizar_paquetes () {
-    f_titulo "Actualizando paquetes    " 3
+    f_titulo "Actualizando paquetes     " 3
 
     # Actualizar paquetes.
     apt update
@@ -148,7 +148,7 @@ f_actualizar_paquetes () {
 
 #
 #   4. Instalar paquetes
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
 # URL: https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
@@ -199,7 +199,7 @@ Pin-Priority: 1000
 
 # Funcion para instalar paquetes.
 f_instalar_paquetes () {
-    f_titulo "Instalando paquetes      " 4
+    f_titulo "Instalando paquetes       " 4
 
     # Instalar paquetes.
     if [ $personalizacion = "f" ]; then
@@ -227,11 +227,11 @@ f_instalar_paquetes () {
 
 #
 #   5. Configurar seguridad
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para configurar la seguridad.
 f_configurar_seguridad () {
-    f_titulo "Configurando seguridad   " 5
+    f_titulo "Configurando seguridad    " 5
 
     # Configurar sudo.
     cd /etc/sudoers.d/
@@ -258,11 +258,11 @@ f_configurar_seguridad () {
 
 #
 #   6. Configurar servicios
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para configurar los servicios.
 f_configurar_servicios () {
-    f_titulo "Configurando servicios   " 6
+    f_titulo "Configurando servicios    " 6
 
     if [ $personalizacion = "f" ]; then
         return
@@ -280,11 +280,11 @@ f_configurar_servicios () {
 
 #
 #   7. Configurar red
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para configurar la red.
 f_configurar_red () {
-    f_titulo "Configurando red         " 7
+    f_titulo "Configurando red          " 7
 
     # Comentar las interfaces de red, para gestionarlas manualmente.
     sed -i '/^$/b; /^#/b; s/^/#/' /etc/network/interfaces
@@ -298,11 +298,11 @@ f_configurar_red () {
 
 #
 #   8. Configurar swap
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para configurar el swap.
 f_configurar_swap () {
-    f_titulo "Configurando swap        " 8
+    f_titulo "Configurando swap         " 8
 
     # Configurar 25% de RAM.
     sed -i 's/^#PERCENT=.*$/PERCENT=25/' /etc/default/zramswap
@@ -316,11 +316,11 @@ f_configurar_swap () {
 
 #
 #   9. Configurar autoinicio
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para configurar el autoinicio.
 f_configurar_autoinicio () {
-    f_titulo "Configurando autoinicio  " 9
+    f_titulo "Configurando autoinicio   " 9
 
     # Obtener nombre de usuario.
     usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
@@ -346,7 +346,7 @@ f_configurar_autoinicio () {
 
 #
 #   10. Personalizar XFCE
-#═════════════════════════════════════
+#════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
