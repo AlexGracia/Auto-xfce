@@ -14,8 +14,8 @@ paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicvi
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 9)"
-    echo "══════════════════════════════════════"
+    echo "  $1 ($2 de 10)"
+    echo "════════════════════════════════════════"
 }
 
 # Funcion para mostrar un mensaje de error en rojo.
@@ -315,12 +315,42 @@ f_configurar_swap () {
 }
 
 #
-#   9. Personalizar XFCE
+#   9. Configurar autoinicio
+#═════════════════════════════════════
+
+# Funcion para configurar el autoinicio.
+f_configurar_autoinicio () {
+    f_titulo "Configurando autoinicio  " 9
+
+    # Obtener nombre de usuario.
+    usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
+
+    # Configurar LightDM.
+
+    # Usuario que iniciará sesión.
+    sed -i "s/^#autologin-user=.*$/autologin-user=$usuario/" /etc/lightdm/lightdm.conf
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    # Quitar tiempo de espera.
+    sed -i 's/^#autologin-user-timeout=.*$/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   10. Personalizar XFCE
 #═════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 9
+    f_titulo "Personalizando XFCE      " 10
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -373,7 +403,9 @@ f_iniciar () {
 
 #    f_configurar_red
 
-    f_configurar_swap
+#    f_configurar_swap
+
+    f_configurar_autoinicio
 
     f_personalizar_xfce
 }
