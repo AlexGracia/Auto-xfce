@@ -234,9 +234,9 @@ f_configurar_seguridad () {
     f_titulo "Configurando seguridad    " 5
 
     # Configurar sudo.
-    cd /etc/sudoers.d/
-    echo "# Pedir contraseña root, por cada comando sudo" > reglas-personalizadas
-    echo "Defaults timestamp_timeout=0" >> reglas-personalizadas
+    archivo="/etc/sudoers.d/reglas-personalizadas"
+    echo "# Pedir contraseña root, por cada comando sudo" > $archivo
+    echo "Defaults timestamp_timeout=0" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
