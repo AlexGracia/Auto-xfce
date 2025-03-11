@@ -8,13 +8,13 @@
 
 # Variables globales
 personalizacion=$1
-paquetes_frecuentes="evince galculator gnome-boxes mousepad network-manager network-manager-gnome photoflare p7zip-full redshift redshift-gtk gthumb sakura sudo thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-whiskermenu-plugin zram-tools"
-paquetes_infrecuentes="chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager network-manager-gnome p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager zram-tools"
+paquetes_frecuentes="anacron evince galculator gnome-boxes mousepad network-manager network-manager-gnome photoflare p7zip-full redshift redshift-gtk gthumb sakura sudo thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-whiskermenu-plugin zram-tools"
+paquetes_infrecuentes="anacron chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager network-manager-gnome p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager zram-tools"
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 10)"
+    echo "  $1 ($2 de 11)"
     echo "════════════════════════════════════════"
 }
 
@@ -345,12 +345,34 @@ f_configurar_autoinicio () {
 }
 
 #
-#   10. Personalizar XFCE
+#   10. Configurar tareas
+#════════════════════════════════════════
+
+# Funcion para configurar las tareas.
+f_configurar_tareas () {
+    f_titulo "Configurando tareas      " 10
+
+    if [ $personalizacion = "i" ]; then
+        return
+    fi
+
+    # Configurar actualizaciones automaticas semanalmente.
+    echo -e "7\t1\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> /etc/anacrontab
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   11. Personalizar XFCE
 #════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 10
+    f_titulo "Personalizando XFCE      " 11
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -405,7 +427,9 @@ f_iniciar () {
 
 #    f_configurar_swap
 
-    f_configurar_autoinicio
+#    f_configurar_autoinicio
+
+    f_configurar_tareas
 
     f_personalizar_xfce
 }
