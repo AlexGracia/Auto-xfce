@@ -357,7 +357,17 @@ f_configurar_tareas () {
     fi
 
     # Configurar actualizaciones automaticas semanalmente.
-    echo -e "7\t1\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> /etc/anacrontab
+    archivo="/etc/anacrontab"
+
+    # Controlar duplicidades.
+    cat $archivo | grep -q "actualizaciones"
+
+    if [ $? = 0 ]; then
+        return
+    fi
+
+    # Añadir tarea.
+    echo -e "7\t1\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
