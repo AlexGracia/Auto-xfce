@@ -42,14 +42,14 @@ f_comprobaciones_iniciales () {
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
-    apt -h > /dev/null
+    apt -h >/dev/null
     if [ $? != 0 ]; then
         f_error "Debes tener la paqueteria apt."
     fi
 
     # Comprobar la red.
     echo "Comprobando la conexion de red ..."
-    ping 1.1.1.1 -c 1 -s 1 -q > /dev/null 2> /dev/null
+    ping 1.1.1.1 -c 1 -s 1 -q >/dev/null 2>1&
     if [ $? != 0 ]; then
         f_error "Debes tener conexion de red."
     fi
@@ -62,7 +62,7 @@ f_comprobaciones_iniciales () {
 
     # Comprobar el paquete wget.
     echo "Comprobando el paquete wget ..."
-    wget -h > /dev/null
+    wget -h >/dev/null
     # Intentar instalar si falta.
     if [ $? != 0 ]; then
         apt install -y wget
