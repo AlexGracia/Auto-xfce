@@ -356,8 +356,10 @@ f_configurar_tareas () {
         return
     fi
 
-    # Configurar actualizaciones automaticas semanalmente.
+    # Variables
     archivo="/etc/anacrontab"
+
+    # 1. Configurar actualizaciones semanalmente.
 
     # Controlar duplicidades.
     cat $archivo | grep -q "actualizaciones"
@@ -367,7 +369,23 @@ f_configurar_tareas () {
     fi
 
     # Añadir tarea.
-    echo -e "7\t1\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> $archivo
+    echo -e "7\t5\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> $archivo
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    # 2. Configurar limpieza mensualmente.
+
+    # Controlar duplicidades.
+    cat $archivo | grep -q "limpieza"
+
+    if [ $? = 0 ]; then
+        return
+    fi
+
+    # Añadir tarea.
+    echo -e "@monthly\t5\tlimpieza\tapt clean -y && apt autoclean -y && apt autoremove -y && apt autopurge -y >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
