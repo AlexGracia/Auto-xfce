@@ -26,3 +26,8 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [x] 9. Configurar autoinicio
 - [x] 10. Configurar tareas
 - [ ] 11. Personalizar XFCE
+
+## Herramientas
+- [it-tools](https://github.com/CorentinTh/it-tools): [ASCII Art Text Generator](https://it-tools.tech/ascii-text-drawer), fuente ANSI Shadow, utilizado en texto de bienvenida y despedida.
+- [pollinations](https://github.com/pollinations/pollinations): [Generación de imagen con IA](https://pollinations.ai/), utilizado en fondos de pantalla.
+- [Llama 3.3](https://github.com/meta-llama/llama3): utilizado a través del chat de [DuckDuckGo](Duck.ai), para resolver dudas.
