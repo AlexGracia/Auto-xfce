@@ -31,3 +31,4 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [IT-TOOLS](https://github.com/CorentinTh/it-tools): [ASCII Art Text Generator](https://it-tools.tech/ascii-text-drawer), fuente ANSI Shadow, utilizado en texto de bienvenida y despedida.
 - [Pollinations.AI](https://github.com/pollinations/pollinations): [generación de imagen con IA](https://pollinations.ai/), utilizado en fondos de pantalla.
 - [Llama 3.3](https://github.com/meta-llama/llama3): utilizado a través del chat de [DuckDuckGo](https://Duck.ai), para resolver dudas.
+- [Nano](https://www.nano-editor.org/git.php): [editor de texto](https://www.nano-editor.org/docs.php).
