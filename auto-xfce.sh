@@ -427,8 +427,6 @@ f_personalizar_xfce () {
 # Funcion para iniciar el script.
 f_iniciar () {
     # Bienvenida.
-    # URL: https://github.com/CorentinTh/it-tools
-    # Fuente: ANSI Shadow.
     clear
     echo "
  █████╗ ██╗   ██╗████████╗ ██████╗      ██╗  ██╗███████╗ ██████╗███████╗
