@@ -10,11 +10,12 @@
 personalizacion=$1
 paquetes_frecuentes="anacron evince galculator gnome-boxes mousepad network-manager network-manager-gnome photoflare p7zip-full redshift redshift-gtk gthumb sakura sudo thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-whiskermenu-plugin zram-tools"
 paquetes_infrecuentes="anacron chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager network-manager-gnome p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager zram-tools"
+usuario=""
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 11)"
+    echo "  $1 ($2 de 12)"
     echo "════════════════════════════════════════"
 }
 
@@ -395,12 +396,41 @@ f_configurar_tareas () {
 }
 
 #
-#   11. Personalizar XFCE
+#   11. Configurar bashrc
+#════════════════════════════════════════
+
+# Funcion para configurar el bashrc.
+f_configurar_bashrc () {
+    f_titulo "Configurando bashrc       " 11
+
+    if [ $personalizacion = "f" ]; then
+        return
+    fi
+
+    # 1. Usuario root.
+    echo "export PS1='\n\[\033[38;5;196m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ) \[\033[38;5;246m\]\$?\[$(tput sgr0)\]: '" >> ~/.bashrc
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    # 2. Usuario no root.
+    echo "export PS1='\n\[\033[38;5;42m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ): '" >> "/home/$usuario/.bashrc"
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   12. Personalizar XFCE
 #════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 11
+    f_titulo "Personalizando XFCE      " 12
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -455,7 +485,9 @@ f_iniciar () {
 
 #    f_configurar_autoinicio
 
-    f_configurar_tareas
+#    f_configurar_tareas
+
+    f_configurar_bashrc
 
     f_personalizar_xfce
 }
