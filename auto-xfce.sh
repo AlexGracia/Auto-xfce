@@ -15,7 +15,7 @@ usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 14)"
+    echo "  $1 ($2 de 15)"
     echo "════════════════════════════════════════"
 }
 
@@ -497,12 +497,40 @@ f_configurar_nanorc () {
 }
 
 #
-#   14. Personalizar XFCE
+#   14. Configurar hidden
+#════════════════════════════════════════
+
+# Funcion para configurar el hidden.
+f_configurar_hidden () {
+    f_titulo "Configurando hidden      " 14
+
+    if [ $personalizacion = "f" ]; then
+        return
+    fi
+
+    # Usuario no root.
+    # Este archivo oculta las carpetas y archivos escritos aqui
+    echo "Escritorio" >> "/home/$usuario/.hidden"
+    echo "Imágenes" >> "/home/$usuario/.hidden"
+    echo "Música" >> "/home/$usuario/.hidden"
+    echo "Plantillas" >> "/home/$usuario/.hidden"
+    echo "Público" >> "/home/$usuario/.hidden"
+    echo "Vídeos" >> "/home/$usuario/.hidden"
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   15. Personalizar XFCE
 #════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 14
+    f_titulo "Personalizando XFCE      " 15
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -563,7 +591,9 @@ f_iniciar () {
 
 #    f_configurar_aliases
 
-    f_configurar_nanorc
+#    f_configurar_nanorc
+
+    f_configurar_hidden
 
     f_personalizar_xfce
 }
