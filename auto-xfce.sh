@@ -401,7 +401,7 @@ f_configurar_tareas () {
 
 # Funcion para configurar el bashrc.
 f_configurar_bashrc () {
-    f_titulo "Configurando bashrc       " 11
+    f_titulo "Configurando bashrc      " 11
 
     if [ $personalizacion = "f" ]; then
         return
@@ -425,12 +425,53 @@ f_configurar_bashrc () {
 }
 
 #
-#   12. Personalizar XFCE
+#   12. Configurar aliases
+#════════════════════════════════════════
+
+# Funcion para configurar los aliases.
+f_configurar_aliases () {
+    f_titulo "Configurando aliases     " 12
+
+    if [ $personalizacion = "f" ]; then
+        return
+    fi
+
+    # 1. Usuario root.
+    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/.bash_aliases
+    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/.bash_aliases
+    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge'" >> ~/.bash_aliases
+    echo "alias ls='ls -shop --color=auto'" >> ~/.bash_aliases
+    echo "alias reboot='sync && reboot'" >> ~/.bash_aliases
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    # 2. Usuario no root.
+    echo "alias calculadora='bc'" >> "/home/$usuario/.bash_aliases"
+    echo "alias curl='firejail curl'" >> "/home/$usuario/.bash_aliases"
+    echo "alias cvlc='firejail cvlc'" >> "/home/$usuario/.bash_aliases"
+    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> "/home/$usuario/.bash_aliases"
+    echo "alias imgver='gpicview'" >> "/home/$usuario/.bash_aliases"
+    echo "alias ls='ls -shop --color=auto'" >> "/home/$usuario/.bash_aliases"
+    echo "alias pdfver='evince'" >> "/home/$usuario/.bash_aliases"
+    echo "alias su='su -'" >> "/home/$usuario/.bash_aliases"
+    echo "alias wget='firejail wget'" >> "/home/$usuario/.bash_aliases"
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   13. Personalizar XFCE
 #════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 12
+    f_titulo "Personalizando XFCE      " 13
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -487,7 +528,9 @@ f_iniciar () {
 
 #    f_configurar_tareas
 
-    f_configurar_bashrc
+#    f_configurar_bashrc
+
+    f_configurar_aliases
 
     f_personalizar_xfce
 }
