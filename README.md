@@ -1,7 +1,7 @@
 # [<img alt="qr-code" src=".github/img/qr-code.png" width="80" height="80">](https://github.com/AlexGracia/Auto-xfce) Auto-xfce
 [![licencia](https://img.shields.io/github/license/AlexGracia/Auto-xfce?label=licencia&logo=Open-Access&style=flat-square)](LICENSE.md)
 ![plataforma](https://img.shields.io/badge/plataforma-linux-%23FCC624?style=flat-square&logo=linux)
-![version](https://img.shields.io/badge/%E2%9A%A0%EF%B8%8F%20version-0.13.0-%23FCC624?style=flat-square)
+![version](https://img.shields.io/badge/%E2%9A%A0%EF%B8%8F%20version-0.14.0-%23FCC624?style=flat-square)
 
 Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuraciones y personalizaciones.
 
