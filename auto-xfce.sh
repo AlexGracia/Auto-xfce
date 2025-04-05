@@ -15,7 +15,7 @@ usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 13)"
+    echo "  $1 ($2 de 14)"
     echo "════════════════════════════════════════"
 }
 
@@ -466,12 +466,43 @@ f_configurar_aliases () {
 }
 
 #
-#   13. Personalizar XFCE
+#   13. Configurar nanorc
+#════════════════════════════════════════
+
+# Funcion para configurar el nanorc.
+f_configurar_nanorc () {
+    f_titulo "Configurando nanorc      " 13
+
+    if [ $personalizacion = "f" ]; then
+        return
+    fi
+
+    # Usuario no root.
+    echo "set autoindent" >> "/home/$usuario/.nanorc"
+    echo "set tabsize 4" >> "/home/$usuario/.nanorc"
+    echo "set tabstospaces" >> "/home/$usuario/.nanorc"
+    # Borrar parte seleccionada.
+    echo "set zap" >> "/home/$usuario/.nanorc"
+    # La línea que excede el ancho de la pantalla, se muestra en múltiples líneas.
+    echo "set softwrap" >> "/home/$usuario/.nanorc"
+    # Informacion (nombre archivo, nº de lineas, nº de caracteres, ...).
+    echo "set constantshow" >> "/home/$usuario/.nanorc"
+    echo "set minibar" >> "/home/$usuario/.nanorc"
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
+#
+#   14. Personalizar XFCE
 #════════════════════════════════════════
 
 # Funcion para personalizar XFCE.
 f_personalizar_xfce () {
-    f_titulo "Personalizando XFCE      " 13
+    f_titulo "Personalizando XFCE      " 14
 
 #    Para cambiar el tema de XFCE, puedes utilizar el comando xfconf-query:
 
@@ -530,7 +561,9 @@ f_iniciar () {
 
 #    f_configurar_bashrc
 
-    f_configurar_aliases
+#    f_configurar_aliases
+
+    f_configurar_nanorc
 
     f_personalizar_xfce
 }
