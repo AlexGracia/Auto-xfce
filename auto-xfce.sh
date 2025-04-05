@@ -567,31 +567,31 @@ f_iniciar () {
 ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝      ╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
 
     # Ejecucion de funciones.
-#    f_comprobaciones_iniciales
+    f_comprobaciones_iniciales
 
     f_elegir_personalizacion
 
-#    f_actualizar_paquetes
+    f_actualizar_paquetes
 
-#    f_instalar_paquetes
+    f_instalar_paquetes
 
-#    f_configurar_seguridad
+    f_configurar_seguridad
 
-#    f_configurar_servicios
+    f_configurar_servicios
 
-#    f_configurar_red
+    f_configurar_red
 
-#    f_configurar_swap
+    f_configurar_swap
 
-#    f_configurar_autoinicio
+    f_configurar_autoinicio
 
-#    f_configurar_tareas
+    f_configurar_tareas
 
-#    f_configurar_bashrc
+    f_configurar_bashrc
 
-#    f_configurar_aliases
+    f_configurar_aliases
 
-#    f_configurar_nanorc
+    f_configurar_nanorc
 
     f_configurar_hidden
 
