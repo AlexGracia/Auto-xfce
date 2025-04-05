@@ -1,7 +1,7 @@
 #!/bin/sh
 # Descripcion: Script que instala XFCE mínimo, paquetes, configuraciones y personalizaciones.
 # Autor: Alex Gracia
-# Version: 0.11.0
+# Version: 0.12.0
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
@@ -15,7 +15,7 @@ usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 12)"
+    echo "  $1 ($2 de 13)"
     echo "════════════════════════════════════════"
 }
 
