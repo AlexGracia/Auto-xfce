@@ -602,6 +602,23 @@ f_iniciar
 
 # Funcion para finalizar el script.
 f_finalizar () {
+    # Limpiar y ordenar.
+    # Paquetes.
+    apt clean
+    apt autoclean
+    apt autoremove
+    apt autopurge
+    sync
+
+    # Preguntar reinicio.
+    read -p "¿Deseas reiniciar ahora [S/n]?: " respuesta
+
+    # La respuesta por defecto sera s,
+    # si no se elige ninguna manualmente.
+    if [ ! $respuesta ]; then
+        respuesta="s"
+    fi
+
     # Despedida.
     echo "
 ███████╗██╗███╗   ██╗
@@ -610,6 +627,14 @@ f_finalizar () {
 ██╔══╝  ██║██║╚██╗██║
 ██║     ██║██║ ╚████║
 ╚═╝     ╚═╝╚═╝  ╚═══╝"
+
+    # Reiniciar.
+    if [ $respuesta = "s" ] || [ $respuesta = "S" ]; then
+        echo
+        echo "Reinicio en 3 segundos ..."
+        sleep 3
+        reboot
+    fi
 }
 
 f_finalizar
