@@ -604,13 +604,14 @@ f_iniciar
 f_finalizar () {
     # Limpiar y ordenar.
     # Paquetes.
-    apt clean
-    apt autoclean
-    apt autoremove
-    apt autopurge
+    apt clean -y
+    apt autoclean -y
+    apt autoremove -y
+    apt autopurge -y
     sync
 
     # Preguntar reinicio.
+    echo
     read -p "¿Deseas reiniciar ahora [S/n]?: " respuesta
 
     # La respuesta por defecto sera s,
