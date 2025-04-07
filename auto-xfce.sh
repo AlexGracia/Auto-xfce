@@ -610,14 +610,19 @@ f_finalizar () {
     apt autopurge -y
     sync
 
-    # Preguntar reinicio.
-    echo
-    read -p "¿Deseas reiniciar ahora [S/n]?: " respuesta
+    # Preguntar reinicio,
+    # si en la ejecución del script,
+    # no se pasó parámetros.
+    respuesta="s"
+    if [ ! $1 ]; then
+        echo
+        read -p "¿Deseas reiniciar ahora [S/n]?: " respuesta
 
-    # La respuesta por defecto sera s,
-    # si no se elige ninguna manualmente.
-    if [ ! $respuesta ]; then
-        respuesta="s"
+        # La respuesta por defecto sera s,
+        # si no se elige ninguna manualmente.
+        if [ ! $respuesta ]; then
+            respuesta="s"
+        fi
     fi
 
     # Despedida.
