@@ -7,6 +7,7 @@
 #════════════════════════════════════════
 
 # Variables globales
+desatendido=$1
 personalizacion=$1
 paquetes_frecuentes="anacron evince galculator gnome-boxes mousepad network-manager network-manager-gnome photoflare p7zip-full redshift redshift-gtk gthumb sakura sudo thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-whiskermenu-plugin zram-tools"
 paquetes_infrecuentes="anacron chromium evince firejail gimp gnome-boxes gnumeric gpicview network-manager network-manager-gnome p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager zram-tools"
@@ -614,7 +615,7 @@ f_finalizar () {
     # si en la ejecución del script,
     # no se pasó parámetros.
     respuesta="s"
-    if [ ! $1 ]; then
+    if [ ! $desatendido ]; then
         echo
         read -p "¿Deseas reiniciar ahora [S/n]?: " respuesta
 
