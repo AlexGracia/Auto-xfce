@@ -587,7 +587,7 @@ f_personalizar_xfce () {
         # Fondo de pantalla
         wget -q https://raw.githubusercontent.com/AlexGracia/Auto-xfce/refs/heads/master/img/wallpaper-6-light.jpeg
         mv wallpaper-6-light.jpeg /usr/share/images/desktop-base
-        xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -s /usr/share/images/desktop-base/wallpaper-6-light.jpeg
+        xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitoreDP-1/workspace0/last-image -s /usr/share/images/desktop-base/wallpaper-6-light.jpeg
     else
         estilo="Adwaita-dark"
 
