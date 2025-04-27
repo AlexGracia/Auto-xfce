@@ -583,6 +583,11 @@ f_personalizar_xfce () {
 
         # Posicionar panel abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
+
+        # Fondo de pantalla
+        wget -q https://raw.githubusercontent.com/AlexGracia/Auto-xfce/refs/heads/master/img/wallpaper-6-light.jpeg
+        mv wallpaper-6-light.jpeg /usr/share/images/desktop-base
+        xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -s /usr/share/images/desktop-base/wallpaper-6-light.jpeg
     else
         estilo="Adwaita-dark"
 
@@ -624,10 +629,6 @@ f_personalizar_xfce () {
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
     # Mostrar el indicador del modo de presentación
     xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s true
-
-#    Para cambiar el fondo de pantalla, puedes utilizar el comando xfconf-query:
-
-#    xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path -s /ruta/al/fondo/de/pantalla
 
 # Recargar escritorio.
 #xfdesktop --reload
