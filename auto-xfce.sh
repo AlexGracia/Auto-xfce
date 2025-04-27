@@ -537,7 +537,7 @@ f_personalizar_xfce () {
     estilo=""
     letra="Serif Bold 18"
     tema=""
-    tipografia="Serif Bold 26"
+    tipografia="Serif Bold 20"
     cursor=""
     tamanio_cursor="48"
     carpeta_iconos="/home/$usuario/.icons"
