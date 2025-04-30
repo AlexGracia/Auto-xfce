@@ -565,8 +565,13 @@ f_personalizar_xfce () {
     # Descomprimir
     # Cursor
     7z x cursores.zip '-xr!.gitignore' '-xr!.github' '-xr!colors' '-xr!links' '-xr!release' '-xr!src' '-xr!templates' '-xr!AUTHORS' '-xr!COPYING' '-xr!fluent-icon.jpg' '-xr!install.sh' '-xr!README.md' '-xr!build.sh' '-xr!LICENSE' '-xr!logo.png' '-xr!logo.svg' '-xr!preview-01.png' '-xr!preview-02.png'
+
+    sleep 0.5
+
     # Tema
     7z x temas.zip '-xr!img' '-xr!*.md'
+
+    sleep 0.5
 
     if [ $personalizacion = "f" ]; then
         estilo="HighContrast"
@@ -597,7 +602,7 @@ f_personalizar_xfce () {
 
         # Cursor
         cursor="Fluent-dark-cursors"
-        cp -r Fluent-icon-theme-master/cursors/dist/ "$carpeta_iconos/$cursor"
+        cp -r Fluent-icon-theme-master/cursors/dist-dark/ "$carpeta_iconos/$cursor"
 
         # Cambiar color de carpeta
         papirus-folders -C paleorange --theme Papirus-Dark
