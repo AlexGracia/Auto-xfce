@@ -17,7 +17,7 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 ## Instalación
 1. Descargar
     ```sh
-    wget https://git.new/auto-xfce
+    wget https://git.new/auto-xfce.sh
     ```
 1. Ejecutar
     ```sh
