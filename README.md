@@ -15,6 +15,8 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 - Paquete [wget](https://www.gnu.org/software/wget/)
 
 ## Instalación
+
+### Auto-xfce (root)
 1. Descargar
     ```sh
     wget https://git.new/auto-xfce.sh
@@ -22,6 +24,15 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 1. Ejecutar
     ```sh
     sh auto-xfce.sh
+    ```
+### Personalizar-xfce (no root)
+1. Descargar
+    ```sh
+    wget https://git.new/personalizar-xfce.sh
+    ```
+1. Ejecutar
+    ```sh
+    sh personalizar-xfce.sh
     ```
 
 ## Características
