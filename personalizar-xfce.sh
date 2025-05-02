@@ -36,7 +36,7 @@ _ok () {
 
 # Funcion para las comprobaciones iniciales.
 _comprobaciones_iniciales () {
-    _titulo "Comprobaciones iniciales  " 1
+    _titulo "Comprobaciones iniciales   " 1
 
     # Comprobar el paquete wget.
     echo "Comprobando el paquete wget ..."
@@ -72,7 +72,7 @@ _validar_opcion () {
 # Funcion para elegir opcion,
 # si no se eligio previamente en la ejecucion del script.
 _elegir_opcion () {
-    _titulo "Eligiendo opcion " 2
+    _titulo "Elegir opcion              " 2
 
     # No elegir manualmente opcion,
     # si ya se ha elegido en la ejecucion del script.
@@ -104,7 +104,7 @@ _elegir_opcion () {
 
 # Funcion para personalizar Xfce.
 _personalizar_xfce () {
-    _titulo "Personalizar Xfce         " 3
+    _titulo "Personalizar Xfce          " 3
 
     # Variables
     estilo=""
@@ -228,6 +228,8 @@ _iniciar () {
 ║ Personalizar Xfce ║
 ╚═══════════════════╝"
 
+    _comprobaciones_iniciales
+    _elegir_opcion
     _personalizar_xfce
 }
 
