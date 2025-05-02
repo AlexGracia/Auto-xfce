@@ -182,6 +182,11 @@ _personalizar_xfce () {
 
         # Posicionar panel arriba
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=6;x=0;y=0'
+
+        # Ocultar iconos del escritorio
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -s false
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-home -s false
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -s false
     fi
 
     # Apariencia
