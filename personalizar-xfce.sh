@@ -166,11 +166,6 @@ _personalizar_xfce () {
 
         # Posicionar panel abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
-
-        # Fondo de pantalla
-        wget -q https://raw.githubusercontent.com/AlexGracia/Auto-xfce/refs/heads/master/img/wallpaper-6-light.jpeg
-        mv wallpaper-6-light.jpeg /usr/share/images/desktop-base
-        xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitoreDP-1/workspace0/last-image -s /usr/share/images/desktop-base/wallpaper-6-light.jpeg
     else
         estilo="Adwaita-dark"
 
@@ -211,8 +206,7 @@ _personalizar_xfce () {
     # Tamaño de los iconos, 16 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
     # Mostrar el indicador del modo de presentación
-    xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s
-true
+    xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s true
 
 # Recargar escritorio.
 #xfdesktop --reload
