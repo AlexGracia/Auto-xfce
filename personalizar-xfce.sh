@@ -1,17 +1,110 @@
 #!/bin/sh
-# Descripcion: Script que personaliza XFCE
+# Descripcion: Script que personaliza Xfce
 # Autor: Alex Gracia
 # Version: 0.1.0
 # Requisitos: conexion de red y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
 
+# Variables globales
+opcion=$1
+
+# Funcion para mostrar un titulo descriptivo del paso actual.
+_titulo () {
+    echo
+    echo "  $1 ($2 de 3)"
+    echo "════════════════════════════════════════"
+}
+
+# Funcion para mostrar un mensaje de error en rojo.
+_error () {
+    echo
+    echo "\e[91;1m[ ERROR ] $1 \e[0m"
+    exit 1
+}
+
+# Funcion para mostrar un mensaje de ok en verde.
+_ok () {
+    echo
+    echo "\e[92;1m[ OK ]\e[0m"
+    sync
+}
+
 #
-#   1. Personalizar XFCE
+#   1. Comprobaciones iniciales
 #════════════════════════════════════════
 
-# Funcion para personalizar XFCE.
+# Funcion para las comprobaciones iniciales.
+_comprobaciones_iniciales () {
+    _titulo "Comprobaciones iniciales  " 1
+
+    # Comprobar el paquete wget.
+    echo "Comprobando el paquete wget ..."
+    wget -h >/dev/null
+    if [ $? != 0 ]; then
+        _error "Problemas con la instalacion de wget."
+    fi
+
+    _ok
+}
+
+#
+#   2. Elegir opcion
+#════════════════════════════════════════
+
+# Funcion para validar la opcion elegida.
+_validar_opcion () {
+    # Convertir mayusculas en minusculas.
+    opcion=$(echo "$opcion" | tr '[:upper:]' '[:lower:]')
+
+    # Advertir si la opcion es invalida y volver a preguntar.
+    if [ $opcion != "f" ] && [ $opcion != "i" ]; then
+        echo
+        echo "\e[93;1m[ ! ] Debes escoger una opcion valida (f/i).\e[0m"
+        opcion=""
+        _elegir_opcion
+        return
+    fi
+
+    _ok
+}
+
+# Funcion para elegir opcion,
+# si no se eligio previamente en la ejecucion del script.
+_elegir_opcion () {
+    _titulo "Eligiendo opcion " 2
+
+    # No elegir manualmente opcion,
+    # si ya se ha elegido en la ejecucion del script.
+    if [ $opcion ]; then
+        _validar_opcion
+        return
+    fi
+
+    # Elegir opcion.
+    echo "- Opcion [f]recuente."
+    echo "- Opcion [i]nfrecuente."
+    echo
+    read -p "¿Que deseas elegir [F/i]?: " opcion
+
+    # La opcion por defecto sera f,
+    # si no se elige ninguna manualmente.
+    if [ ! $opcion ]; then
+        opcion="f"
+        _ok
+        return
+    fi
+
+    _validar_opcion
+}
+
+#
+#   3. Personalizar Xfce
+#════════════════════════════════════════
+
+# Funcion para personalizar Xfce.
 _personalizar_xfce () {
+    _titulo "Personalizar Xfce         " 3
 
     # Variables
     estilo=""
@@ -58,7 +151,7 @@ _personalizar_xfce () {
     sleep 0.5
 
 # todo  
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         estilo="HighContrast"
         # Tema
         tema="Gris-light"
@@ -123,7 +216,7 @@ true
 
 # Recargar escritorio.
 #xfdesktop --reload
-
+    _ok
 }
 
 # Funcion para iniciar el script.
@@ -131,19 +224,9 @@ _iniciar () {
     # Bienvenida.
     clear
     echo "
-██████╗ ███████╗██████╗ ███████╗ ██████╗ ███╗   ██╗ █████╗ ██╗     ██╗███████╗ █████╗ ██████╗
-██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║██╔══██╗██║     ██║╚══███╔╝██╔══██╗██╔══██╗
-██████╔╝█████╗  ██████╔╝███████╗██║   ██║██╔██╗ ██║███████║██║     ██║  ███╔╝ ███████║██████╔╝
-██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║   ██║██║╚██╗██║██╔══██║██║     ██║ ███╔╝  ██╔══██║██╔══██╗
-██║     ███████╗██║  ██║███████║╚██████╔╝██║ ╚████║██║  ██║███████╗██║███████╗██║  ██║██║  ██║
-╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-
-██╗  ██╗███████╗ ██████╗███████╗
-╚██╗██╔╝██╔════╝██╔════╝██╔════╝
- ╚███╔╝ █████╗  ██║     █████╗
- ██╔██╗ ██╔══╝  ██║     ██╔══╝
-██╔╝ ██╗██║     ╚██████╗███████╗
-╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
+╔═══════════════════╗
+║ Personalizar Xfce ║
+╚═══════════════════╝"
 
     _personalizar_xfce
 }
@@ -154,12 +237,10 @@ _iniciar
 _finalizar () {
     # Despedida.
     echo "
-███████╗██╗███╗   ██╗
-██╔════╝██║████╗  ██║
-█████╗  ██║██╔██╗ ██║
-██╔══╝  ██║██║╚██╗██║
-██║     ██║██║ ╚████║
-╚═╝     ╚═╝╚═╝  ╚═══╝"
+╔═══════════════════╗
+║        Fin        ║
+╚═══════════════════╝"
+
 }
 
 _finalizar
