@@ -166,6 +166,9 @@ _personalizar_xfce () {
 
         # Posicionar panel abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
+
+        # Botones del título de las ventanas
+        xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
     else
         estilo="Adwaita-dark"
 
@@ -187,6 +190,9 @@ _personalizar_xfce () {
         xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -s false
         xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-home -s false
         xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -s false
+
+        # Botones del título de las ventanas
+        xfconf-query -c xfwm4 -p /general/button_layout -s '|C'
     fi
 
     # Apariencia
