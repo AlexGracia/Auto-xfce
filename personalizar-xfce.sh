@@ -197,11 +197,11 @@ _personalizar_xfce () {
 
     # Apariencia
     xfconf-query -c xsettings -p /Net/ThemeName -s $estilo
-    xfconf-query -c xsettings -p /Gtk/FontName -s $letra
+    xfconf-query -c xsettings -p /Gtk/FontName -s "$letra"
 
     # Gestor de ventanas
     xfconf-query -c xfwm4 -p /general/theme -s $tema
-    xfconf-query -c xfwm4 -p /general/title_font -s $tipografia
+    xfconf-query -c xfwm4 -p /general/title_font -s "$tipografia"
     xfconf-query -c xfwm4 -p /general/use_compositing -s false
     xfconf-query -c xfwm4 -p /general/workspace_count -s 1
 
