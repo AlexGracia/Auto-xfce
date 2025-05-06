@@ -125,8 +125,10 @@ _personalizar_xfce () {
     # Color carpetas
     wget -q https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/refs/heads/master/papirus-folders
     # Cursor
+    echo "Descargando cursor ..."
     wget -qO cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
     # Tema
+    echo "Descargando tema ..."
     wget -qO temas.zip https://github.com/AlexGracia/Temas-xfwm4/archive/refs/heads/master.zip
 
     # Carpetas creadas
@@ -141,16 +143,19 @@ _personalizar_xfce () {
 
     # Descomprimir
     # Cursor
-    7z x cursores.zip '-xr!.gitignore' '-xr!.github' '-xr!colors' '-xr!links' '-xr!release' '-xr!src' '-xr!templates' '-xr!AUTHORS' '-xr!COPYING' '-xr!fluent-icon.jpg' '-xr!install.sh' '-xr!README.md' '-xr!build.sh' '-xr!LICENSE' '-xr!logo.png' '-xr!logo.svg' '-xr!preview-01.png' '-xr!preview-02.png'
+    echo "Descomprimiendo cursor ..."
+    7z x -y cursores.zip '-xr!.gitignore' '-xr!.github' '-xr!colors' '-xr!links' '-xr!release' '-xr!src' '-xr!templates' '-xr!AUTHORS' '-xr!COPYING' '-xr!fluent-icon.jpg' '-xr!install.sh' '-xr!README.md' '-xr!build.sh' '-xr!LICENSE' '-xr!logo.png' '-xr!logo.svg' '-xr!preview-01.png' '-xr!preview-02.png' >/dev/null 2>&1
 
     sleep 0.5
 
     # Tema
-    7z x temas.zip '-xr!img' '-xr!*.md'
+    echo "Descomprimiendo tema ..."
+    7z x -y temas.zip '-xr!img' '-xr!*.md' >/dev/null 2>&1
 
     sleep 0.5
 
 # todo  
+echo "Aplicando personalización ..."
     if [ $opcion = "f" ]; then
         estilo="HighContrast"
         # Tema
