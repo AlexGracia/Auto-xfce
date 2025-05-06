@@ -122,8 +122,6 @@ _personalizar_xfce () {
     cd auto-xfce/
 
     # Descargas
-    # Color carpetas
-    wget -q https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/refs/heads/master/papirus-folders
     # Cursor
     echo "Descargando cursor ..."
     wget -qO cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
@@ -166,9 +164,6 @@ echo "Aplicando personalización ..."
         cursor="Fluent-cursors"
         cp -r Fluent-icon-theme-master/cursors/dist/ "$carpeta_iconos/$cursor"
 
-        # Cambiar color de carpeta
-        papirus-folders -C paleorange --theme Papirus-Light
-
         # Panel
         # Estilo, color sólido
         xfconf-query -c xfce4-panel -p /panels/panel-1/background-style -s 0
@@ -192,9 +187,6 @@ echo "Aplicando personalización ..."
         # Cursor
         cursor="Fluent-dark-cursors"
         cp -r Fluent-icon-theme-master/cursors/dist-dark/ "$carpeta_iconos/$cursor"
-
-        # Cambiar color de carpeta
-        papirus-folders -C paleorange --theme Papirus-Dark
 
         # Panel
         # Estilo, color sólido

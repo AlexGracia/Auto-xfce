@@ -525,6 +525,39 @@ f_configurar_hidden () {
     f_ok
 }
 
+#
+#   15. Personalizar carpetas
+#════════════════════════════════════════
+
+# Funcion para cambiar el color de las carpetas.
+f_personalizar_carpetas () {
+    f_titulo "Personalizando carpetas  " 15
+
+    # Carpeta temporal de trabajo
+    cd /tmp/
+    if [ ! -d "auto-xfce" ]; then
+        mkdir auto-xfce
+    fi
+    cd auto-xfce/
+
+    # Descargar script
+    echo "Descargando script ..."
+    wget -qO papirus-folders.sh https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/refs/heads/master/papirus-folders
+
+    echo "Personalizando carpetas ..."
+    if [ $personalizacion = "f" ]; then
+        bash papirus-folders.sh -C paleorange --theme Papirus-Light
+    else
+        bash papirus-folders.sh -C paleorange --theme Papirus-Dark
+    fi
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
 # Funcion para iniciar el script.
 f_iniciar () {
     # Bienvenida.
@@ -565,6 +598,8 @@ f_iniciar () {
     f_configurar_nanorc
 
     f_configurar_hidden
+
+    f_personalizar_carpetas
 
 }
 
