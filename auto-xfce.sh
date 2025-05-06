@@ -16,7 +16,7 @@ usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 14)"
+    echo "  $1 ($2 de 15)"
     echo "════════════════════════════════════════"
 }
 
