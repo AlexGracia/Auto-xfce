@@ -116,9 +116,11 @@ _personalizar_xfce () {
     carpeta_iconos="$HOME/.icons"
     carpeta_tema="$HOME/.themes"
 
-    # Carpeta temporal
+    # Carpeta temporal de trabajo
     cd /tmp/
-    mkdir auto-xfce
+    if [ ! -d "auto-xfce" ]; then
+        mkdir auto-xfce
+    fi
     cd auto-xfce/
 
     # Descargas
