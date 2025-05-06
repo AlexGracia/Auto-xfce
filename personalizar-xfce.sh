@@ -126,10 +126,10 @@ _personalizar_xfce () {
     # Descargas
     # Cursor
     echo "Descargando cursor ..."
-    wget -qO cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
+    wget -q --show-progress -O cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
     # Tema
     echo "Descargando tema ..."
-    wget -qO temas.zip https://github.com/AlexGracia/Temas-xfwm4/archive/refs/heads/master.zip
+    wget -q --show-progress -O temas.zip https://github.com/AlexGracia/Temas-xfwm4/archive/refs/heads/master.zip
 
     # Carpetas creadas
     # Iconos
