@@ -542,7 +542,7 @@ f_personalizar_carpetas () {
 
     # Descargar script
     echo "Descargando script ..."
-    wget -qO papirus-folders.sh https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/refs/heads/master/papirus-folders
+    wget -q --show-progress -O papirus-folders.sh https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/refs/heads/master/papirus-folders
 
     echo "Personalizando carpetas ..."
     if [ $personalizacion = "f" ]; then
