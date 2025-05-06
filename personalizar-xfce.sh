@@ -164,8 +164,16 @@ _personalizar_xfce () {
         # Cambiar color de carpeta
         papirus-folders -C paleorange --theme Papirus-Light
 
-        # Posicionar panel abajo
+        # Panel
+        # Estilo, color sólido
+        xfconf-query -c xfce4-panel -p /panels/panel-1/background-style -s 0
+        # Posicionar abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
+
+        # Mostrar iconos del escritorio
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -s true
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-home -s true
+        xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -s true
 
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
@@ -183,7 +191,12 @@ _personalizar_xfce () {
         # Cambiar color de carpeta
         papirus-folders -C paleorange --theme Papirus-Dark
 
-        # Posicionar panel arriba
+        # Panel
+        # Estilo, color sólido
+        xfconf-query -c xfce4-panel -p /panels/panel-1/background-style -s 1
+        # Color de fondo, negro
+        xfconf-query -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
+        # Posicionar arriba
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=6;x=0;y=0'
 
         # Ocultar iconos del escritorio
@@ -210,10 +223,6 @@ _personalizar_xfce () {
     xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s $tamanio_cursor
 
     # Panel
-    # Estilo, color sólido
-    xfconf-query -c xfce4-panel -p /panels/panel-1/background-style -s 1
-    # Color de fondo, negro
-    xfconf-query -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
     # Tamaño de la fila, 52 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/size -s 52
     # Tamaño de los iconos, 16 px
