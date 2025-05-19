@@ -1,7 +1,7 @@
 #!/bin/sh
 # Descripcion: Script que instala XFCE mínimo, paquetes, configuraciones y personalizaciones.
 # Autor: Alex Gracia
-# Version: 0.15.1
+# Version: 0.14.3
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
