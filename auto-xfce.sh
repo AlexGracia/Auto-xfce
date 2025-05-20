@@ -505,10 +505,6 @@ f_configurar_nanorc () {
 f_configurar_hidden () {
     f_titulo "Configurando hidden      " 14
 
-    if [ $personalizacion = "f" ]; then
-        return
-    fi
-
     # Usuario no root.
     # Este archivo oculta las carpetas y archivos escritos aqui
     echo "Escritorio" >> "/home/$usuario/.hidden"
