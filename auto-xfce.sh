@@ -453,6 +453,7 @@ f_configurar_aliases () {
     echo "alias curl='firejail curl'" >> "/home/$usuario/.bash_aliases"
     echo "alias cvlc='firejail cvlc'" >> "/home/$usuario/.bash_aliases"
     echo "alias exit='echo > ~/.bash_history && sync && exit'" >> "/home/$usuario/.bash_aliases"
+    echo "alias imgcomprimir='optipng -strip all'" >> "/home/$usuario/.bash_aliases"
     echo "alias imgver='gpicview'" >> "/home/$usuario/.bash_aliases"
     echo "alias ls='ls -shop --color=auto'" >> "/home/$usuario/.bash_aliases"
     echo "alias pdfver='evince'" >> "/home/$usuario/.bash_aliases"
