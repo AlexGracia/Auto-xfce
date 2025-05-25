@@ -222,8 +222,8 @@ echo "Aplicando personalización ..."
     xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s $tamanio_cursor
 
     # Panel
-    # Tamaño de la fila, 52 px
-    xfconf-query -c xfce4-panel -p /panels/panel-1/size -s 52
+    # Tamaño de la fila, 32 px
+    xfconf-query -c xfce4-panel -p /panels/panel-1/size -s 32
     # Tamaño de los iconos, 16 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
     # Mostrar el indicador del modo de presentación
