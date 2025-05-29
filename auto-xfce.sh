@@ -554,7 +554,7 @@ f_iniciar () {
 
     f_configurar_autoinicio
 
-    f_configurar_tareas
+#    f_configurar_tareas
 
     f_configurar_bashrc
 
