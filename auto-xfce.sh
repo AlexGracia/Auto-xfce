@@ -365,14 +365,21 @@ f_configurar_tareas () {
     # 1. Configurar actualizaciones semanalmente.
 
     # Controlar duplicidades.
-    cat $archivo | grep -q "actualizaciones"
+    cat $archivo | grep -q "actualizacion"
 
     if [ $? = 0 ]; then
         return
     fi
 
+    # Descargar script.
+    echo "Descargando script para actualizar pc ..."
+    wget -q --show-progress -O actualizar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/actualizar-pc.sh
+
+    # Guardar el script.
+    mv actualizar-pc.sh /usr/local/sbin/
+
     # Añadir tarea.
-    echo -e "7\t5\tactualizaciones\tapt update && apt upgrade -y >/dev/null 2>&1" >> $archivo
+    echo -e "7\t5\tactualizacion\t/usr/local/sbin/actualizar-pc.sh >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
@@ -387,8 +394,15 @@ f_configurar_tareas () {
         return
     fi
 
+    # Descargar script.
+    echo "Descargando script para limpiar pc ..."
+    wget -q --show-progress -O limpiar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/limpiar-pc.sh
+
+    # Guardar el script.
+    mv limpiar-pc.sh /usr/local/sbin/
+
     # Añadir tarea.
-    echo -e "@monthly\t5\tlimpieza\tapt clean -y && apt autoclean -y && apt autoremove -y && apt autopurge -y >/dev/null 2>&1" >> $archivo
+    echo -e "@monthly\t5\tlimpieza\t/usr/local/sbin/limpiar-pc.sh >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
@@ -554,7 +568,7 @@ f_iniciar () {
 
     f_configurar_autoinicio
 
-#    f_configurar_tareas
+    f_configurar_tareas
 
     f_configurar_bashrc
 
