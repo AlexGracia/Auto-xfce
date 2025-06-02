@@ -16,6 +16,7 @@ _limpiar_pc () {
     apt autoclean -y
     apt autoremove -y
     apt autopurge -y
+    apt purge -y $(apt-mark showremove)
 
     # Avisar al usuario,
     # para que apague el pc, si quiere.
