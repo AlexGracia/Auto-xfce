@@ -375,11 +375,14 @@ f_configurar_tareas () {
     echo "Descargando script para actualizar pc ..."
     wget -q --show-progress -O actualizar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/actualizar-pc.sh
 
+    # Dar permiso de ejecución.
+    chmod u+x actualizar-pc.sh
+
     # Guardar el script.
     mv actualizar-pc.sh /usr/local/sbin/
 
     # Añadir tarea.
-    echo -e "7\t5\tactualizacion\t/usr/local/sbin/actualizar-pc.sh >/dev/null 2>&1" >> $archivo
+    echo "7 5 actualizacion /usr/local/sbin/actualizar-pc.sh >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
@@ -398,11 +401,14 @@ f_configurar_tareas () {
     echo "Descargando script para limpiar pc ..."
     wget -q --show-progress -O limpiar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/limpiar-pc.sh
 
+    # Dar permiso de ejecución.
+    chmod u+x limpiar-pc.sh
+
     # Guardar el script.
     mv limpiar-pc.sh /usr/local/sbin/
 
     # Añadir tarea.
-    echo -e "@monthly\t5\tlimpieza\t/usr/local/sbin/limpiar-pc.sh >/dev/null 2>&1" >> $archivo
+    echo "@monthly 5 limpieza /usr/local/sbin/limpiar-pc.sh >/dev/null 2>&1" >> $archivo
 
     if [ $? != 0 ]; then
         f_error
