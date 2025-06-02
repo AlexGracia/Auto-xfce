@@ -3,7 +3,7 @@
 ![plataforma](https://img.shields.io/badge/plataforma-linux-%23FCC624?style=flat-square&logo=linux)
 ![version](https://img.shields.io/github/v/tag/AlexGracia/Auto-xfce?style=flat-square&label=%E2%9A%A0%EF%B8%8F%20version&color=fcc624)
 
-Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuraciones y personalizaciones.
+Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes, configuraciones y personalizaciones.
 
 > [!WARNING]
 > En construcción, cuidado (para, siente y decide).
@@ -50,7 +50,7 @@ Script que instala [XFCE](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [x] 12. Configurar aliases
 - [x] 13. Configurar nanorc
 - [x] 14. Configurar hidden
-- [ ] 15. Personalizar XFCE
+- [ ] 15. Personalizar Xfce
 
 ## Herramientas
 - [IT-TOOLS](https://github.com/CorentinTh/it-tools): [ASCII Art Text Generator](https://it-tools.tech/ascii-text-drawer), fuente ANSI Shadow, utilizado en texto de bienvenida y despedida.

@@ -629,7 +629,7 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    Auto-xfce es un script que instala XFCE mínimo, paquetes, configuraciones
+    Auto-xfce es un script que instala Xfce mínimo, paquetes, configuraciones
     y personalizaciones.
     Copyright (C) 2025 Alex Gracia.
 
