@@ -461,7 +461,7 @@ f_configurar_aliases () {
     # 1. Usuario root.
     echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/.bash_aliases
     echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/.bash_aliases
-    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge'" >> ~/.bash_aliases
+    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove)'" >> ~/.bash_aliases
     echo "alias ls='ls -shop --color=auto'" >> ~/.bash_aliases
     echo "alias reboot='sync && reboot'" >> ~/.bash_aliases
 
