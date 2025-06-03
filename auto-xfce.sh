@@ -543,6 +543,29 @@ f_configurar_hidden () {
     f_ok
 }
 
+#
+#   15. Configurar redshift
+#════════════════════════════════════════
+
+# Funcion para configurar redshift.
+f_configurar_redshift () {
+    f_titulo "Configurando redshift    " 15
+
+    echo "temp-day=5780" >> "/home/$usuario/.config/redshift.conf"
+    echo "temp-night=5780" >> "/home/$usuario/.config/redshift.conf"
+    echo "gamma=0.8" >> "/home/$usuario/.config/redshift.conf"
+    echo "location-provider=manual" >> "/home/$usuario/.config/redshift.conf"
+    echo "adjustment-method=randr" >> "/home/$usuario/.config/redshift.conf"
+    echo "lat=41.64" >> "/home/$usuario/.config/redshift.conf"
+    echo "lon=-0.88" >> "/home/$usuario/.config/redshift.conf"
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
 # Funcion para iniciar el script.
 f_iniciar () {
     # Bienvenida.
@@ -584,6 +607,7 @@ f_iniciar () {
 
     f_configurar_hidden
 
+    f_configurar_redshift
 }
 
 f_iniciar
