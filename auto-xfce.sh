@@ -566,8 +566,6 @@ f_configurar_redshift () {
         f_error
     fi
 
-    redshift-gtk &
-
     f_ok
 }
 
