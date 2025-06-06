@@ -550,13 +550,17 @@ f_configurar_hidden () {
 f_configurar_redshift () {
     f_titulo "Configurando redshift    " 15
 
+    echo "[redshift]" >> "/home/$usuario/.config/redshift.conf"
     echo "temp-day=5780" >> "/home/$usuario/.config/redshift.conf"
     echo "temp-night=5780" >> "/home/$usuario/.config/redshift.conf"
+    echo "fade=0" >> "/home/$usuario/.config/redshift.conf"
     echo "gamma=0.8" >> "/home/$usuario/.config/redshift.conf"
     echo "location-provider=manual" >> "/home/$usuario/.config/redshift.conf"
     echo "adjustment-method=randr" >> "/home/$usuario/.config/redshift.conf"
+    echo "[manual]" >> "/home/$usuario/.config/redshift.conf"
     echo "lat=41.64" >> "/home/$usuario/.config/redshift.conf"
     echo "lon=-0.88" >> "/home/$usuario/.config/redshift.conf"
+    echo "[randr]" >> "/home/$usuario/.config/redshift.conf"
 
     if [ $? != 0 ]; then
         f_error
