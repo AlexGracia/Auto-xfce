@@ -307,7 +307,7 @@ f_configurar_swap () {
     f_titulo "Configurando swap         " 8
 
     # Configurar 25% de RAM.
-    sed -i 's/^#PERCENT=.*$/PERCENT=25/' /etc/default/zramswap
+    sed -i 's/PERCENT=.*$/PERCENT=25/' /etc/default/zramswap
 
     if [ $? != 0 ]; then
         f_error
