@@ -49,13 +49,6 @@ f_comprobaciones_iniciales () {
         f_error "Debes tener la paqueteria apt."
     fi
 
-    # Comprobar la red.
-    echo "Comprobando la conexion de red ..."
-    ping 1.1.1.1 -c 1 -s 1 -q >/dev/null 2>&1
-    if [ $? != 0 ]; then
-        f_error "Debes tener conexion de red."
-    fi
-
     # Comprobar el usuario.
     echo "Comprobando el usuario ..."
     if [ "$(whoami)" != "root" ]; then
