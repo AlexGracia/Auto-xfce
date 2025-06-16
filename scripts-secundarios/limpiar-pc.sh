@@ -8,7 +8,8 @@
 # Funcion para limpiar el pc.
 _limpiar_pc () {
     export DISPLAY=:0.0
-    export XAUTHORITY=/home/usuario/.Xauthority
+    usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
+    export XAUTHORITY="/home/$usuario/.Xauthority"
 
     # Avisar al usuario,
     # para que no apague el pc.
