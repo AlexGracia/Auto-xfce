@@ -7,6 +7,9 @@
 
 # Funcion para limpiar el pc.
 _limpiar_pc () {
+    export DISPLAY=:0.0
+    export XAUTHORITY=/home/usuario/.Xauthority
+
     # Avisar al usuario,
     # para que no apague el pc.
     xmessage -timeout 10 -center -title "Limpieza mensual" -buttons Aceptar:0,Cancelar:1 "¿Limpiar PC ahora?" -fn 12x24
