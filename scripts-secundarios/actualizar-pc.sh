@@ -8,6 +8,10 @@
 
 # Funcion para actualizar el pc.
 _actualizar_pc () {
+    export DISPLAY=:0.0
+    export XAUTHORITY=/home/usuario/.Xauthority
+
+
     # Avisar al usuario,
     # para que no apague el pc.
     xmessage -timeout 10 -center -title "Actualización semanal" -buttons Aceptar:0,Cancelar:1 "¿Actualizar PC ahora?" -fn 12x24
