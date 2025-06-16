@@ -10,15 +10,20 @@
 _actualizar_pc () {
     # Avisar al usuario,
     # para que no apague el pc.
-    notify-send -t 10000 -i "/usr/share/icons/HighContrast/scalable/status/dialog-warning.svg" "Actualizando ..." "No apague el PC."
+    xmessage -timeout 10 -center -title "Actualización semanal" -buttons Aceptar:0,Cancelar:1 "¿Actualizar PC ahora?" -fn 12x24
+
+    if [ $? != 0 ]; then
+        return
+    fi
 
     # Actualizar pc.
     apt update
     apt upgrade -y
+    sync
 
     # Avisar al usuario,
     # para que apague el pc, si quiere.
-    notify-send -t 10000 -i "/usr/share/icons/HighContrast/scalable/actions/dialog-ok.svg" "Actualizado" "PC actualizado correctamente."
+    xmessage -timeout 5 -center -title "Actualización semanal" -buttons "" "PC actualizado." -fn 12x24
 }
 
 # Funcion para iniciar el script.
@@ -42,7 +47,6 @@ _finalizar () {
 ╔═══════════════╗
 ║      Fin      ║
 ╚═══════════════╝"
-
 }
 
 _finalizar
