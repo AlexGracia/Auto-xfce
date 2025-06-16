@@ -9,7 +9,11 @@
 _limpiar_pc () {
     # Avisar al usuario,
     # para que no apague el pc.
-    notify-send -t 10000 -i "/usr/share/icons/HighContrast/scalable/status/dialog-warning.svg" "Limpiando ..." "No apague el PC."
+    xmessage -timeout 10 -center -title "Limpieza mensual" -buttons Aceptar:0,Cancelar:1 "¿Limpiar PC ahora?" -fn 12x24
+
+    if [ $? != 0 ]; then
+        return
+    fi
 
     # Limpiar pc.
     apt clean -y
@@ -17,10 +21,12 @@ _limpiar_pc () {
     apt autoremove -y
     apt autopurge -y
     apt purge -y $(apt-mark showremove)
+    journalctl --vacuum-size=100M
+    sync
 
     # Avisar al usuario,
     # para que apague el pc, si quiere.
-    notify-send -t 10000 -i "/usr/share/icons/HighContrast/scalable/actions/dialog-ok.svg" "Limpiado" "PC limpiado correctamente."
+    xmessage -timeout 5 -center -title "Limpieza mensual" -buttons "" "PC limpio." -fn 12x24
 }
 
 # Funcion para iniciar el script.
