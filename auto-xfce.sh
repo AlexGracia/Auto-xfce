@@ -447,11 +447,11 @@ f_configurar_aliases () {
     fi
 
     # 1. Usuario root.
-    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/.bash_aliases
-    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/.bash_aliases
-    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove)'" >> ~/.bash_aliases
-    echo "alias ls='ls -shop --color=auto'" >> ~/.bash_aliases
-    echo "alias reboot='sync && reboot'" >> ~/.bash_aliases
+    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/.bashrc
+    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/.bashrc
+    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/.bashrc
+    echo "alias ls='ls -shop --color=auto'" >> ~/.bashrc
+    echo "alias reboot='sync && reboot'" >> ~/.bashrc
 
     if [ $? != 0 ]; then
         f_error
