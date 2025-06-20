@@ -259,10 +259,6 @@ f_configurar_seguridad () {
 f_configurar_servicios () {
     f_titulo "Configurando servicios    " 6
 
-    if [ $personalizacion = "f" ]; then
-        return
-    fi
-
     # Deshabilitar servicio de bluetooth.
     systemctl disable bluetooth
 
