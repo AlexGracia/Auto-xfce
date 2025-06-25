@@ -9,8 +9,8 @@
 # Variables globales
 desatendido=$1
 personalizacion=$1
-paquetes_frecuentes="anacron cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
-paquetes_infrecuentes="chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
+paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
+paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
 usuario=""
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
