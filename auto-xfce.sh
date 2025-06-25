@@ -16,7 +16,7 @@ usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 f_titulo () {
     echo
-    echo "  $1 ($2 de 15)"
+    echo "  $1 ($2 de 16)"
     echo "════════════════════════════════════════"
 }
 
@@ -558,6 +558,23 @@ f_configurar_redshift () {
     f_ok
 }
 
+#
+#   16. Configurar brillo
+#════════════════════════════════════════
+
+# Funcion para configurar el brillo de la pantalla.
+f_configurar_brillo () {
+    f_titulo "Configurando brillo      " 16
+
+    brightnessctl set 90%
+
+    if [ $? != 0 ]; then
+        f_error
+    fi
+
+    f_ok
+}
+
 # Funcion para iniciar el script.
 f_iniciar () {
     # Bienvenida.
@@ -600,6 +617,8 @@ f_iniciar () {
     f_configurar_hidden
 
     f_configurar_redshift
+
+    f_configurar_brillo
 }
 
 f_iniciar
