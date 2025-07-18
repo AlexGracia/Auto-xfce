@@ -315,6 +315,15 @@ f_configurar_autoinicio () {
 
     # Obtener nombre de usuario.
     usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
+    if [ "$usuario" = "" ]; then
+        usuario=$(getent passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+        if [ "$usuario" = "" ]; then
+            usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+            if [ "$usuario" = "" ]; then
+                f_error "Usuario no encontrado."
+            fi
+        fi
+    fi
 
     # Configurar LightDM.
 
