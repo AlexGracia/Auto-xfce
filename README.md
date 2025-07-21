@@ -60,3 +60,7 @@ Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [Llama 3.3](https://github.com/meta-llama/llama3): utilizado a través del chat de [DuckDuckGo](https://Duck.ai), para resolver dudas.
 - [Dub](https://github.com/dubinc/dub): [acortador de enlaces](https://dub.co/), utilizado en los enlaces de descarga.
 - [Nano](https://www.nano-editor.org/git.php): [editor de texto](https://www.nano-editor.org/docs.php).
+
+## Otras automatizaciones
+- [Preseed](https://wiki.debian.org/DebianInstaller/Preseed).
+- [Simple-CDD](https://wiki.debian.org/Simple-CDD).
