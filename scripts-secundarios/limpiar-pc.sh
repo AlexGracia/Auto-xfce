@@ -1,14 +1,31 @@
 #!/bin/sh
 # Descripcion: Script que limpiar el pc
 # Autor: Alex Gracia
-# Version: 0.1.0
+# Version: 0.1.1
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
+
+# Funcion para mostrar un mensaje de error en rojo.
+f_error () {
+    echo
+    echo "\e[91;1m[ ERROR ] $1 \e[0m"
+    exit 1
+}
 
 # Funcion para limpiar el pc.
 _limpiar_pc () {
     export DISPLAY=:0.0
+    # Obtener nombre de usuario.
     usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
+    if [ "$usuario" = "" ]; then
+        usuario=$(getent passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+        if [ "$usuario" = "" ]; then
+            usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+            if [ "$usuario" = "" ]; then
+                f_error "Usuario no encontrado."
+            fi
+        fi
+    fi
     export XAUTHORITY="/home/$usuario/.Xauthority"
 
     # Avisar al usuario,
