@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Descripcion: Script que personaliza Xfce
 # Autor: Alex Gracia
 # Version: 0.1.0

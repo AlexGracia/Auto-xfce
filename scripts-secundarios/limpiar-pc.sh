@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Descripcion: Script que limpiar el pc
 # Autor: Alex Gracia
 # Version: 0.1.1

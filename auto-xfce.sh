@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Descripcion: Script que instala Xfce mínimo, paquetes, configuraciones y personalizaciones.
 # Autor: Alex Gracia
 # Version: 0.16.0
