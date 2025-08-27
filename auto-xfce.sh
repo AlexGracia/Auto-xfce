@@ -352,63 +352,93 @@ f_configurar_autoinicio () {
 f_configurar_tareas () {
     f_titulo "Configurando tareas      " 10
 
-    if [ $personalizacion = "i" ]; then
-        return
-    fi
-
     # Variables
-    archivo="/etc/anacrontab"
+    readonly tareas="/etc/anacrontab"
+    readonly carpeta="/usr/local/sbin/"
+    readonly url="https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/"
+    script=""
 
-    # 1. Configurar actualizaciones semanalmente.
+    if [ $personalizacion = "f" ]; then
+        # 1. Configurar actualizaciones semanalmente.
 
-    # Controlar duplicidades.
-    cat $archivo | grep -q "actualizacion"
+        # Controlar duplicidades.
+        cat $tareas | grep -q "actualizacion"
 
-    if [ $? = 0 ]; then
-        return
-    fi
+        if [ $? = 0 ]; then
+            return
+        fi
 
-    # Descargar script.
-    echo "Descargando script para actualizar pc ..."
-    wget -q --show-progress -O actualizar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/actualizar-pc.sh
+        # Descargar script.
+        echo "Descargando script para actualizar pc ..."
+        script="actualizar-pc.sh"
+        wget -q --show-progress -O $script $url$script
 
-    # Dar permiso de ejecución.
-    chmod u+x actualizar-pc.sh
+        # Dar permiso de ejecución.
+        chmod u+x $script
 
-    # Guardar el script.
-    mv actualizar-pc.sh /usr/local/sbin/
+        # Guardar el script.
+        mv $script $carpeta
 
-    # Añadir tarea.
-    echo "7 5 actualizacion /usr/local/sbin/actualizar-pc.sh >/dev/null 2>&1" >> $archivo
+        # Añadir tarea.
+        echo "7 5 actualizacion $carpeta$script >/dev/null 2>&1" >> $tareas
 
-    if [ $? != 0 ]; then
-        f_error
-    fi
+        if [ $? != 0 ]; then
+            f_error
+        fi
 
-    # 2. Configurar limpieza mensualmente.
+        # 2. Configurar limpieza mensualmente.
 
-    # Controlar duplicidades.
-    cat $archivo | grep -q "limpieza"
+        # Controlar duplicidades.
+        cat $tareas | grep -q "limpieza"
 
-    if [ $? = 0 ]; then
-        return
-    fi
+        if [ $? = 0 ]; then
+            return
+        fi
 
-    # Descargar script.
-    echo "Descargando script para limpiar pc ..."
-    wget -q --show-progress -O limpiar-pc.sh https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/limpiar-pc.sh
+        # Descargar script.
+        echo "Descargando script para limpiar pc ..."
+        script="limpiar-pc.sh"
+        wget -q --show-progress -O $script $url$script
 
-    # Dar permiso de ejecución.
-    chmod u+x limpiar-pc.sh
+        # Dar permiso de ejecución.
+        chmod u+x $script
 
-    # Guardar el script.
-    mv limpiar-pc.sh /usr/local/sbin/
+        # Guardar el script.
+        mv $script $carpeta
 
-    # Añadir tarea.
-    echo "@monthly 5 limpieza /usr/local/sbin/limpiar-pc.sh >/dev/null 2>&1" >> $archivo
+        # Añadir tarea.
+        echo "@monthly 5 limpieza $carpeta$script >/dev/null 2>&1" >> $tareas
 
-    if [ $? != 0 ]; then
-        f_error
+        if [ $? != 0 ]; then
+            f_error
+        fi
+    else
+        # Comprobar actualizaciones semanalmente.
+
+        # Controlar duplicidades.
+        cat $tareas | grep -q "actualizaciones"
+
+        if [ $? = 0 ]; then
+            return
+        fi
+
+        # Descargar script.
+        echo "Descargando script para comprobar actualizaciones ..."
+        script="comprobar-actualizaciones.sh"
+        wget -q --show-progress -O $script $url$script
+
+        # Dar permiso de ejecución.
+        chmod u+x $script
+
+        # Guardar el script.
+        mv $script $carpeta
+
+        # Añadir tarea.
+        echo "7 1 actualizaciones $carpeta$script >/dev/null 2>&1" >> $tareas
+
+        if [ $? != 0 ]; then
+            f_error
+        fi
     fi
 
     f_ok
