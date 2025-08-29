@@ -1,16 +1,9 @@
 #!/usr/bin/env sh
-# Descripcion: Script que limpiar el pc
+# Descripcion: Script que limpia el pc.
 # Autor: Alex Gracia
 # Version: 0.1.1
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
-
-# Funcion para mostrar un mensaje de error en rojo.
-f_error () {
-    echo
-    echo "\e[91;1m[ ERROR ] $1 \e[0m"
-    exit 1
-}
 
 # Funcion para limpiar el pc.
 _limpiar_pc () {
@@ -22,7 +15,9 @@ _limpiar_pc () {
         if [ "$usuario" = "" ]; then
             usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
             if [ "$usuario" = "" ]; then
-                f_error "Usuario no encontrado."
+                echo
+                echo "\e[91;1m[ ERROR ] Usuario no encontrado. \e[0m"
+                exit 1
             fi
         fi
     fi
@@ -50,29 +45,6 @@ _limpiar_pc () {
     xmessage -timeout 5 -center -title "Limpieza mensual" -buttons "" "PC limpio." -fn 12x24
 }
 
-# Funcion para iniciar el script.
-_iniciar () {
-    # Bienvenida.
-    clear
-    echo "
-╔════════════╗
-║ Limpiar pc ║
-╚════════════╝"
-
-    _limpiar_pc
-}
-
-_iniciar
-
-# Funcion para finalizar el script.
-_finalizar () {
-    # Despedida.
-    echo "
-╔════════════╗
-║    Fin     ║
-╚════════════╝"
-}
-
-_finalizar
+_limpiar_pc
 
 exit

@@ -15,7 +15,7 @@ _actualizacion_disponible () {
             usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
             if [ "$usuario" = "" ]; then
                 echo
-                echo "Usuario no encontrado."
+                echo "\e[91;1m[ ERROR ] Usuario no encontrado. \e[0m"
                 exit 1
             fi
         fi

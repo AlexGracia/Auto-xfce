@@ -1,17 +1,10 @@
 #!/usr/bin/env sh
-# Descripcion: Script que actualiza el pc
+# Descripcion: Script que actualiza el pc.
 # Autor: Alex Gracia
 # Version: 0.1.1
 # Requisitos: conexion de red
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
-
-# Funcion para mostrar un mensaje de error en rojo.
-f_error () {
-    echo
-    echo "\e[91;1m[ ERROR ] $1 \e[0m"
-    exit 1
-}
 
 # Funcion para actualizar el pc.
 _actualizar_pc () {
@@ -23,12 +16,13 @@ _actualizar_pc () {
         if [ "$usuario" = "" ]; then
             usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
             if [ "$usuario" = "" ]; then
-                f_error "Usuario no encontrado."
+                echo
+                echo "\e[91;1m[ ERROR ] Usuario no encontrado. \e[0m"
+                exit 1
             fi
         fi
     fi
     export XAUTHORITY="/home/$usuario/.Xauthority"
-
 
     # Avisar al usuario,
     # para que no apague el pc.
@@ -48,29 +42,6 @@ _actualizar_pc () {
     xmessage -timeout 5 -center -title "Actualización semanal" -buttons "" "PC actualizado." -fn 12x24
 }
 
-# Funcion para iniciar el script.
-_iniciar () {
-    # Bienvenida.
-    clear
-    echo "
-╔═══════════════╗
-║ Actualizar pc ║
-╚═══════════════╝"
-
-    _actualizar_pc
-}
-
-_iniciar
-
-# Funcion para finalizar el script.
-_finalizar () {
-    # Despedida.
-    echo "
-╔═══════════════╗
-║      Fin      ║
-╚═══════════════╝"
-}
-
-_finalizar
+_actualizar_pc
 
 exit
