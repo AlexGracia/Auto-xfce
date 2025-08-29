@@ -8,27 +8,27 @@
 
 # Variables globales
 desatendido=$1
-personalizacion=$1
+opcion=$1
 paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
 paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
 usuario=""
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
-f_titulo () {
+_titulo () {
     echo
     echo "  $1 ($2 de 16)"
     echo "════════════════════════════════════════"
 }
 
 # Funcion para mostrar un mensaje de error en rojo.
-f_error () {
+_error () {
     echo
     echo "\e[91;1m[ ERROR ] $1 \e[0m"
     exit 1
 }
 
 # Funcion para mostrar un mensaje de ok en verde.
-f_ok () {
+_ok () {
     echo
     echo "\e[92;1m[ OK ]\e[0m"
     sync
@@ -39,20 +39,20 @@ f_ok () {
 #════════════════════════════════════════
 
 # Funcion para las comprobaciones iniciales.
-f_comprobaciones_iniciales () {
-    f_titulo "Comprobaciones iniciales  " 1
+_comprobaciones_iniciales () {
+    _titulo "Comprobaciones iniciales  " 1
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
     apt -h >/dev/null
     if [ $? != 0 ]; then
-        f_error "Debes tener la paqueteria apt."
+        _error "Debes tener la paqueteria apt."
     fi
 
     # Comprobar el usuario.
     echo "Comprobando el usuario ..."
     if [ "$(whoami)" != "root" ]; then
-        f_error "Debes ser usuario root."
+        _error "Debes ser usuario root."
     fi
 
     # Comprobar el paquete wget.
@@ -62,64 +62,64 @@ f_comprobaciones_iniciales () {
     if [ $? != 0 ]; then
         apt install -y wget
         if [ $? != 0 ]; then
-            f_error "Problemas con la instalacion de wget."
+            _error "Problemas con la instalacion de wget."
         fi
     fi
 
-    f_ok
+    _ok
 }
 
 #
-#   2. Elegir personalizacion
+#   2. Elegir opcion
 #════════════════════════════════════════
 
-# Funcion para validar la personalizacion elegida.
-f_validar_personalizacion () {
+# Funcion para validar la opcion elegida.
+_validar_opcion () {
     # Convertir mayusculas en minusculas.
-    personalizacion=$(echo "$personalizacion" | tr '[:upper:]' '[:lower:]')
+    opcion=$(echo "$opcion" | tr '[:upper:]' '[:lower:]')
 
-    # Advertir si la personalizacion es invalida y volver a preguntar.
-    if [ $personalizacion != "f" ] && [ $personalizacion != "i" ]; then
+    # Advertir si la opcion es invalida y volver a preguntar.
+    if [ $opcion != "f" ] && [ $opcion != "i" ]; then
         echo
-        echo "\e[93;1m[ ! ] Debes escoger una personalizacion valida (f/i).\e[0m"
-        personalizacion=""
-        f_elegir_personalizacion
+        echo "\e[93;1m[ ! ] Debes escoger una opcion valida (f/i).\e[0m"
+        opcion=""
+        _elegir_opcion
         return
     fi
 
-    echo "Personalizacion $personalizacion elegida."
+    echo "Opcion $opcion elegida."
 
-    f_ok
+    _ok
 }
 
-# Funcion para elegir personalizacion,
+# Funcion para elegir opcion,
 # si no se eligio previamente en la ejecucion del script.
-f_elegir_personalizacion () {
-    f_titulo "Eligiendo personalizacion " 2
+_elegir_opcion () {
+    _titulo "Eligiendo opcion " 2
 
-    # No elegir manualmente personalizacion,
+    # No elegir manualmente opcion,
     # si ya se ha elegido en la ejecucion del script.
-    if [ $personalizacion ]; then
-        f_validar_personalizacion
+    if [ $opcion ]; then
+        _validar_opcion
         return
     fi
 
-    # Elegir personalizacion.
-    echo "- Personalizacion [f]recuente."
-    echo "- Personalizacion [i]nfrecuente."
+    # Elegir opcion.
+    echo "- Opcion [f]recuente."
+    echo "- Opcion [i]nfrecuente."
     echo
-    read -p "¿Que deseas elegir [F/i]?: " personalizacion
+    read -p "¿Que deseas elegir [F/i]?: " opcion
 
-    # La personalizacion por defecto sera f,
+    # La opcion por defecto sera f,
     # si no se elige ninguna manualmente.
-    if [ ! $personalizacion ]; then
-        personalizacion="f"
-        echo "Personalizacion $personalizacion elegida."
-        f_ok
+    if [ ! $opcion ]; then
+        opcion="f"
+        echo "Opcion $opcion elegida."
+        _ok
         return
     fi
 
-    f_validar_personalizacion
+    _validar_opcion
 }
 
 #
@@ -127,18 +127,18 @@ f_elegir_personalizacion () {
 #════════════════════════════════════════
 
 # Funcion para actualizar paquetes.
-f_actualizar_paquetes () {
-    f_titulo "Actualizando paquetes     " 3
+_actualizar_paquetes () {
+    _titulo "Actualizando paquetes     " 3
 
     # Actualizar paquetes.
     apt update
     apt upgrade -y
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -147,7 +147,7 @@ f_actualizar_paquetes () {
 
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
 # URL: https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
-f_onlyoffice () {
+_onlyoffice () {
     # Añadir repositorio.
     mkdir -p -m 700 ~/.gnupg
     gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
@@ -163,13 +163,13 @@ f_onlyoffice () {
     apt install -y onlyoffice-desktopeditors
 
     if [ $? != 0 ]; then
-        f_error "Problemas con la instalacion de OnlyOffice."
+        _error "Problemas con la instalacion de OnlyOffice."
     fi
 }
 
 # Funcion para instalar Firefox, desde su repositorio oficial.
 # URL: https://support.mozilla.org/en-US/kb/install-firefox-linux
-f_firefox () {
+_firefox () {
     # Añadir repositorio.
     install -d -m 0755 /etc/apt/keyrings
     wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | tee /etc/apt/keyrings/packages.mozilla.org.asc >/dev/null
@@ -188,36 +188,36 @@ Pin-Priority: 1000
     apt install -y firefox firefox-l10n-es-es
 
     if [ $? != 0 ]; then
-        f_error "Problemas con la instalacion de Firefox."
+        _error "Problemas con la instalacion de Firefox."
     fi
 }
 
 # Funcion para instalar paquetes.
-f_instalar_paquetes () {
-    f_titulo "Instalando paquetes       " 4
+_instalar_paquetes () {
+    _titulo "Instalando paquetes       " 4
 
     # Instalar paquetes.
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         apt install -y $paquetes_frecuentes
 
         if [ $? != 0 ]; then
-            f_error
+            _error
         fi
 
         # Instalar OnlyOffice.
-        f_onlyoffice
+        _onlyoffice
     else
         apt install -y $paquetes_infrecuentes
 
         if [ $? != 0 ]; then
-            f_error
+            _error
         fi
     fi
 
     # Instalar Firefox.
-    f_firefox
+    _firefox
 
-    f_ok
+    _ok
 }
 
 #
@@ -225,8 +225,8 @@ f_instalar_paquetes () {
 #════════════════════════════════════════
 
 # Funcion para configurar la seguridad.
-f_configurar_seguridad () {
-    f_titulo "Configurando seguridad    " 5
+_configurar_seguridad () {
+    _titulo "Configurando seguridad    " 5
 
     # Configurar sudo.
     archivo="/etc/sudoers.d/reglas-personalizadas"
@@ -234,7 +234,7 @@ f_configurar_seguridad () {
     echo "Defaults timestamp_timeout=0" >> $archivo
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
     # Configurar ufw.
@@ -245,10 +245,10 @@ f_configurar_seguridad () {
     ufw enable
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -256,17 +256,17 @@ f_configurar_seguridad () {
 #════════════════════════════════════════
 
 # Funcion para configurar los servicios.
-f_configurar_servicios () {
-    f_titulo "Configurando servicios    " 6
+_configurar_servicios () {
+    _titulo "Configurando servicios    " 6
 
     # Deshabilitar servicio de bluetooth.
     systemctl disable bluetooth
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -274,17 +274,17 @@ f_configurar_servicios () {
 #════════════════════════════════════════
 
 # Funcion para configurar la red.
-f_configurar_red () {
-    f_titulo "Configurando red          " 7
+_configurar_red () {
+    _titulo "Configurando red          " 7
 
     # Comentar las interfaces de red, para gestionarlas manualmente.
     sed -i '/^$/b; /^#/b; s/^/#/' /etc/network/interfaces
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -292,17 +292,17 @@ f_configurar_red () {
 #════════════════════════════════════════
 
 # Funcion para configurar el swap.
-f_configurar_swap () {
-    f_titulo "Configurando swap         " 8
+_configurar_swap () {
+    _titulo "Configurando swap         " 8
 
     # Configurar 25% de RAM.
     sed -i 's/PERCENT=.*$/PERCENT=25/' /etc/default/zramswap
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -310,8 +310,8 @@ f_configurar_swap () {
 #════════════════════════════════════════
 
 # Funcion para configurar el autoinicio.
-f_configurar_autoinicio () {
-    f_titulo "Configurando autoinicio   " 9
+_configurar_autoinicio () {
+    _titulo "Configurando autoinicio   " 9
 
     # Obtener nombre de usuario.
     usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
@@ -320,7 +320,7 @@ f_configurar_autoinicio () {
         if [ "$usuario" = "" ]; then
             usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
             if [ "$usuario" = "" ]; then
-                f_error "Usuario no encontrado."
+                _error "Usuario no encontrado."
             fi
         fi
     fi
@@ -331,17 +331,17 @@ f_configurar_autoinicio () {
     sed -i "s/^#autologin-user=.*$/autologin-user=$usuario/" /etc/lightdm/lightdm.conf
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
     # Quitar tiempo de espera.
     sed -i 's/^#autologin-user-timeout=.*$/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -349,8 +349,8 @@ f_configurar_autoinicio () {
 #════════════════════════════════════════
 
 # Funcion para configurar las tareas.
-f_configurar_tareas () {
-    f_titulo "Configurando tareas      " 10
+_configurar_tareas () {
+    _titulo "Configurando tareas      " 10
 
     # Variables
     readonly tareas="/etc/anacrontab"
@@ -358,7 +358,7 @@ f_configurar_tareas () {
     readonly url="https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/"
     script=""
 
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         # 1. Configurar actualizaciones semanalmente.
 
         # Controlar duplicidades.
@@ -383,7 +383,7 @@ f_configurar_tareas () {
         echo "7 5 actualizacion $carpeta$script >/dev/null 2>&1" >> $tareas
 
         if [ $? != 0 ]; then
-            f_error
+            _error
         fi
 
         # 2. Configurar limpieza mensualmente.
@@ -410,7 +410,7 @@ f_configurar_tareas () {
         echo "@monthly 5 limpieza $carpeta$script >/dev/null 2>&1" >> $tareas
 
         if [ $? != 0 ]; then
-            f_error
+            _error
         fi
     else
         # Comprobar actualizaciones semanalmente.
@@ -437,11 +437,11 @@ f_configurar_tareas () {
         echo "7 1 actualizaciones $carpeta$script >/dev/null 2>&1" >> $tareas
 
         if [ $? != 0 ]; then
-            f_error
+            _error
         fi
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -449,10 +449,10 @@ f_configurar_tareas () {
 #════════════════════════════════════════
 
 # Funcion para configurar el bashrc.
-f_configurar_bashrc () {
-    f_titulo "Configurando bashrc      " 11
+_configurar_bashrc () {
+    _titulo "Configurando bashrc      " 11
 
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         return
     fi
 
@@ -460,17 +460,17 @@ f_configurar_bashrc () {
     echo "export PS1='\n\[\033[38;5;196m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ) \[\033[38;5;246m\]\$?\[$(tput sgr0)\]: '" >> ~/.bashrc
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
     # 2. Usuario no root.
     echo "export PS1='\n\[\033[38;5;42m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ): '" >> "/home/$usuario/.bashrc"
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -478,10 +478,10 @@ f_configurar_bashrc () {
 #════════════════════════════════════════
 
 # Funcion para configurar los aliases.
-f_configurar_aliases () {
-    f_titulo "Configurando aliases     " 12
+_configurar_aliases () {
+    _titulo "Configurando aliases     " 12
 
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         return
     fi
 
@@ -493,7 +493,7 @@ f_configurar_aliases () {
     echo "alias reboot='sync && reboot'" >> ~/.bashrc
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
     # 2. Usuario no root.
@@ -509,10 +509,10 @@ f_configurar_aliases () {
     echo "alias wget='firejail wget'" >> "/home/$usuario/.bash_aliases"
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -520,10 +520,10 @@ f_configurar_aliases () {
 #════════════════════════════════════════
 
 # Funcion para configurar el nanorc.
-f_configurar_nanorc () {
-    f_titulo "Configurando nanorc      " 13
+_configurar_nanorc () {
+    _titulo "Configurando nanorc      " 13
 
-    if [ $personalizacion = "f" ]; then
+    if [ $opcion = "f" ]; then
         return
     fi
 
@@ -540,10 +540,10 @@ f_configurar_nanorc () {
     echo "set minibar" >> "/home/$usuario/.nanorc"
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -551,8 +551,8 @@ f_configurar_nanorc () {
 #════════════════════════════════════════
 
 # Funcion para configurar el hidden.
-f_configurar_hidden () {
-    f_titulo "Configurando hidden      " 14
+_configurar_hidden () {
+    _titulo "Configurando hidden      " 14
 
     # Usuario no root.
     # Este archivo oculta las carpetas y archivos escritos aqui
@@ -564,10 +564,10 @@ f_configurar_hidden () {
     echo "Vídeos" >> "/home/$usuario/.hidden"
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -575,8 +575,8 @@ f_configurar_hidden () {
 #════════════════════════════════════════
 
 # Funcion para configurar redshift.
-f_configurar_redshift () {
-    f_titulo "Configurando redshift    " 15
+_configurar_redshift () {
+    _titulo "Configurando redshift    " 15
 
     echo "[redshift]" >> "/home/$usuario/.config/redshift.conf"
     echo "temp-day=5780" >> "/home/$usuario/.config/redshift.conf"
@@ -591,10 +591,10 @@ f_configurar_redshift () {
     echo "[randr]" >> "/home/$usuario/.config/redshift.conf"
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 #
@@ -602,20 +602,20 @@ f_configurar_redshift () {
 #════════════════════════════════════════
 
 # Funcion para configurar el brillo de la pantalla.
-f_configurar_brillo () {
-    f_titulo "Configurando brillo      " 16
+_configurar_brillo () {
+    _titulo "Configurando brillo      " 16
 
     brightnessctl set 90%
 
     if [ $? != 0 ]; then
-        f_error
+        _error
     fi
 
-    f_ok
+    _ok
 }
 
 # Funcion para iniciar el script.
-f_iniciar () {
+_iniciar () {
     # Bienvenida.
     clear
     echo "
@@ -627,43 +627,43 @@ f_iniciar () {
 ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝      ╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
 
     # Ejecucion de funciones.
-    f_comprobaciones_iniciales
+    _comprobaciones_iniciales
 
-    f_elegir_personalizacion
+    _elegir_opcion
 
-    f_actualizar_paquetes
+    _actualizar_paquetes
 
-    f_instalar_paquetes
+    _instalar_paquetes
 
-    f_configurar_seguridad
+    _configurar_seguridad
 
-    f_configurar_servicios
+    _configurar_servicios
 
-    f_configurar_red
+    _configurar_red
 
-    f_configurar_swap
+    _configurar_swap
 
-    f_configurar_autoinicio
+    _configurar_autoinicio
 
-    f_configurar_tareas
+    _configurar_tareas
 
-    f_configurar_bashrc
+    _configurar_bashrc
 
-    f_configurar_aliases
+    _configurar_aliases
 
-    f_configurar_nanorc
+    _configurar_nanorc
 
-    f_configurar_hidden
+    _configurar_hidden
 
-    f_configurar_redshift
+    _configurar_redshift
 
-    f_configurar_brillo
+    _configurar_brillo
 }
 
-f_iniciar
+_iniciar
 
 # Funcion para finalizar el script.
-f_finalizar () {
+_finalizar () {
     # Limpiar y ordenar.
     # Paquetes.
     apt clean -y
@@ -705,5 +705,5 @@ f_finalizar () {
     fi
 }
 
-f_finalizar
+_finalizar
 exit
