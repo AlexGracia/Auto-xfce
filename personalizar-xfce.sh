@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Descripcion: Script que personaliza Xfce
+# Descripcion: Script que personaliza Xfce.
 # Autor: Alex Gracia
 # Version: 0.1.0
 # Requisitos: conexion de red y paquete wget
@@ -107,14 +107,13 @@ _personalizar_xfce () {
     _titulo "Personalizar Xfce          " 3
 
     # Variables
+    readonly fuente="Serif Bold 18"
+    readonly tamanio_cursor="48"
+    readonly carpeta_iconos="$HOME/.icons"
+    readonly carpeta_temas="$HOME/.themes"
     estilo=""
-    letra="Serif Bold 18"
     tema=""
-    tipografia="Serif Bold 18"
     cursor=""
-    tamanio_cursor="48"
-    carpeta_iconos="$HOME/.icons"
-    carpeta_tema="$HOME/.themes"
 
     # Carpeta temporal de trabajo
     cd /tmp/
@@ -137,8 +136,8 @@ _personalizar_xfce () {
         mkdir $carpeta_iconos
     fi
     # Tema
-    if [ ! -d "$carpeta_tema" ]; then
-        mkdir $carpeta_tema
+    if [ ! -d "$carpeta_temas" ]; then
+        mkdir $carpeta_temas
     fi
 
     # Descomprimir
@@ -154,13 +153,13 @@ _personalizar_xfce () {
 
     sleep 0.5
 
-# todo  
-echo "Aplicando personalización ..."
+    # todo  
+    echo "Aplicando personalización ..."
     if [ $opcion = "f" ]; then
         estilo="HighContrast"
         # Tema
         tema="Gris-light"
-        cp -r "Temas-xfwm4-master/$tema" "$carpeta_tema"
+        cp -r "Temas-xfwm4-master/$tema" "$carpeta_temas"
 
         # Cursor
         cursor="Fluent-cursors"
@@ -184,7 +183,7 @@ echo "Aplicando personalización ..."
 
         # Tema
         tema="Oliva-dark"
-        cp -r "Temas-xfwm4-master/$tema" "$carpeta_tema"
+        cp -r "Temas-xfwm4-master/$tema" "$carpeta_temas"
 
         # Cursor
         cursor="Fluent-dark-cursors"
@@ -209,11 +208,11 @@ echo "Aplicando personalización ..."
 
     # Apariencia
     xfconf-query -c xsettings -p /Net/ThemeName -s $estilo
-    xfconf-query -c xsettings -p /Gtk/FontName -s "$letra"
+    xfconf-query -c xsettings -p /Gtk/FontName -s "$fuente"
 
     # Gestor de ventanas
     xfconf-query -c xfwm4 -p /general/theme -s $tema
-    xfconf-query -c xfwm4 -p /general/title_font -s "$tipografia"
+    xfconf-query -c xfwm4 -p /general/title_font -s "$fuente"
     xfconf-query -c xfwm4 -p /general/use_compositing -s false
     xfconf-query -c xfwm4 -p /general/workspace_count -s 1
 
@@ -229,8 +228,8 @@ echo "Aplicando personalización ..."
     # Mostrar el indicador del modo de presentación
     xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s true
 
-# Recargar escritorio.
-#xfdesktop --reload
+    # Recargar escritorio.
+    #xfdesktop --reload
     _ok
 }
 
@@ -257,7 +256,6 @@ _finalizar () {
 ╔═══════════════════╗
 ║        Fin        ║
 ╚═══════════════════╝"
-
 }
 
 _finalizar
