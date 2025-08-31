@@ -7,11 +7,12 @@
 #════════════════════════════════════════
 
 # Variables globales
-desatendido=$1
+readonly desatendido=$1
 opcion=$1
-paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
-paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
+readonly paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
+readonly paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
 usuario=""
+carpeta_usuario=""
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
 _titulo () {
@@ -145,11 +146,26 @@ _actualizar_paquetes () {
 #   4. Instalar paquetes
 #════════════════════════════════════════
 
+# Funcion para obtener el nombre de usuario.
+_obtener_usuario () {
+    usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
+    if [ "$usuario" = "" ]; then
+        usuario=$(getent passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+        if [ "$usuario" = "" ]; then
+            usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
+            if [ "$usuario" = "" ]; then
+                _error "Usuario no encontrado."
+            fi
+        fi
+    fi
+    readonly carpeta_usuario="/home/$usuario"
+}
+
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
 # URL: https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
 _onlyoffice () {
     # Añadir repositorio.
-    mkdir -p -m 700 ~/.gnupg
+    mkdir -p -m 700 "$carpeta_usuario/.gnupg"
     gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
     chmod 644 /tmp/onlyoffice.gpg
     chown root:root /tmp/onlyoffice.gpg
@@ -196,6 +212,8 @@ Pin-Priority: 1000
 _instalar_paquetes () {
     _titulo "Instalando paquetes       " 4
 
+    _obtener_usuario
+
     # Instalar paquetes.
     if [ $opcion = "f" ]; then
         apt install -y $paquetes_frecuentes
@@ -228,8 +246,11 @@ _instalar_paquetes () {
 _configurar_seguridad () {
     _titulo "Configurando seguridad    " 5
 
+    # Variables
+    local archivo="/etc/sudoers.d/reglas-personalizadas"
+    readonly archivo
+
     # Configurar sudo.
-    archivo="/etc/sudoers.d/reglas-personalizadas"
     echo "# Pedir contraseña root, por cada comando sudo" > $archivo
     echo "Defaults timestamp_timeout=0" >> $archivo
 
@@ -277,8 +298,12 @@ _configurar_servicios () {
 _configurar_red () {
     _titulo "Configurando red          " 7
 
+    # Variables
+    local archivo="/etc/network/interfaces"
+    readonly archivo
+
     # Comentar las interfaces de red, para gestionarlas manualmente.
-    sed -i '/^$/b; /^#/b; s/^/#/' /etc/network/interfaces
+    sed -i '/^$/b; /^#/b; s/^/#/' $archivo
 
     if [ $? != 0 ]; then
         _error
@@ -295,8 +320,12 @@ _configurar_red () {
 _configurar_swap () {
     _titulo "Configurando swap         " 8
 
+    # Variables
+    local archivo="/etc/default/zramswap"
+    readonly archivo
+
     # Configurar 25% de RAM.
-    sed -i 's/PERCENT=.*$/PERCENT=25/' /etc/default/zramswap
+    sed -i 's/PERCENT=.*$/PERCENT=25/' $archivo
 
     if [ $? != 0 ]; then
         _error
@@ -313,29 +342,21 @@ _configurar_swap () {
 _configurar_autoinicio () {
     _titulo "Configurando autoinicio   " 9
 
-    # Obtener nombre de usuario.
-    usuario=$(getent group users | cut -d: -f4 -s | sed -n 1p)
-    if [ "$usuario" = "" ]; then
-        usuario=$(getent passwd | grep home | cut -d: -f1 -s | sed -n 1p)
-        if [ "$usuario" = "" ]; then
-            usuario=$(cat /etc/passwd | grep home | cut -d: -f1 -s | sed -n 1p)
-            if [ "$usuario" = "" ]; then
-                _error "Usuario no encontrado."
-            fi
-        fi
-    fi
+    # Variables
+    local archivo="/etc/lightdm/lightdm.conf"
+    readonly archivo
 
     # Configurar LightDM.
 
     # Usuario que iniciará sesión.
-    sed -i "s/^#autologin-user=.*$/autologin-user=$usuario/" /etc/lightdm/lightdm.conf
+    sed -i "s/^#autologin-user=.*$/autologin-user=$usuario/" $archivo
 
     if [ $? != 0 ]; then
         _error
     fi
 
     # Quitar tiempo de espera.
-    sed -i 's/^#autologin-user-timeout=.*$/autologin-user-timeout=0/' /etc/lightdm/lightdm.conf
+    sed -i 's/^#autologin-user-timeout=.*$/autologin-user-timeout=0/' $archivo
 
     if [ $? != 0 ]; then
         _error
@@ -353,10 +374,13 @@ _configurar_tareas () {
     _titulo "Configurando tareas      " 10
 
     # Variables
-    readonly tareas="/etc/anacrontab"
-    readonly carpeta="/usr/local/sbin/"
-    readonly url="https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/"
-    script=""
+    local tareas="/etc/anacrontab"
+    local carpeta="/usr/local/sbin/"
+    local url="https://github.com/AlexGracia/Auto-xfce/raw/refs/heads/master/scripts-secundarios/"
+    readonly tareas
+    readonly carpeta
+    readonly url
+    local script=""
 
     if [ $opcion = "f" ]; then
         # 1. Configurar actualizaciones semanalmente.
@@ -456,15 +480,19 @@ _configurar_bashrc () {
         return
     fi
 
+    # Variables
+    local archivo=".bashrc"
+    readonly archivo
+
     # 1. Usuario root.
-    echo "export PS1='\n\[\033[38;5;196m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ) \[\033[38;5;246m\]\$?\[$(tput sgr0)\]: '" >> ~/.bashrc
+    echo "export PS1='\n\[\033[38;5;196m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ) \[\033[38;5;246m\]\$?\[$(tput sgr0)\]: '" >> ~/$archivo
 
     if [ $? != 0 ]; then
         _error
     fi
 
     # 2. Usuario no root.
-    echo "export PS1='\n\[\033[38;5;42m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ): '" >> "/home/$usuario/.bashrc"
+    echo "export PS1='\n\[\033[38;5;42m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ): '" >> "$carpeta_usuario/$archivo"
 
     if [ $? != 0 ]; then
         _error
@@ -485,28 +513,33 @@ _configurar_aliases () {
         return
     fi
 
+    # Variables
+    local archivo=""
+
     # 1. Usuario root.
-    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/.bashrc
-    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/.bashrc
-    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/.bashrc
-    echo "alias ls='ls -shop --color=auto'" >> ~/.bashrc
-    echo "alias reboot='sync && reboot'" >> ~/.bashrc
+    archivo=".bashrc"
+    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/$archivo
+    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/$archivo
+    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/$archivo
+    echo "alias ls='ls -shop --color=auto'" >> ~/$archivo
+    echo "alias reboot='sync && reboot'" >> ~/$archivo
 
     if [ $? != 0 ]; then
         _error
     fi
 
     # 2. Usuario no root.
-    echo "alias calculadora='bc'" >> "/home/$usuario/.bash_aliases"
-    echo "alias curl='firejail curl'" >> "/home/$usuario/.bash_aliases"
-    echo "alias cvlc='firejail cvlc'" >> "/home/$usuario/.bash_aliases"
-    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> "/home/$usuario/.bash_aliases"
-    echo "alias imgcomprimir='optipng -strip all'" >> "/home/$usuario/.bash_aliases"
-    echo "alias imgver='gpicview'" >> "/home/$usuario/.bash_aliases"
-    echo "alias ls='ls -shop --color=auto'" >> "/home/$usuario/.bash_aliases"
-    echo "alias pdfver='evince'" >> "/home/$usuario/.bash_aliases"
-    echo "alias su='su -'" >> "/home/$usuario/.bash_aliases"
-    echo "alias wget='firejail wget'" >> "/home/$usuario/.bash_aliases"
+    archivo="$carpeta_usuario/.bash_aliases"
+    echo "alias calculadora='bc'" >> "$archivo"
+    echo "alias curl='firejail curl'" >> "$archivo"
+    echo "alias cvlc='firejail cvlc'" >> "$archivo"
+    echo "alias exit='echo > ~/.bash_history && sync && exit'" >> "$archivo"
+    echo "alias imgcomprimir='optipng -strip all'" >> "$archivo"
+    echo "alias imgver='gpicview'" >> "$archivo"
+    echo "alias ls='ls -shop --color=auto'" >> "$archivo"
+    echo "alias pdfver='evince'" >> "$archivo"
+    echo "alias su='su -'" >> "$archivo"
+    echo "alias wget='firejail wget'" >> "$archivo"
 
     if [ $? != 0 ]; then
         _error
@@ -527,17 +560,21 @@ _configurar_nanorc () {
         return
     fi
 
+    # Variables
+    local archivo="$carpeta_usuario/.nanorc"
+    readonly archivo
+
     # Usuario no root.
-    echo "set autoindent" >> "/home/$usuario/.nanorc"
-    echo "set tabsize 4" >> "/home/$usuario/.nanorc"
-    echo "set tabstospaces" >> "/home/$usuario/.nanorc"
+    echo "set autoindent" >> "$archivo"
+    echo "set tabsize 4" >> "$archivo"
+    echo "set tabstospaces" >> "$archivo"
     # Borrar parte seleccionada.
-    echo "set zap" >> "/home/$usuario/.nanorc"
+    echo "set zap" >> "$archivo"
     # La línea que excede el ancho de la pantalla, se muestra en múltiples líneas.
-    echo "set softwrap" >> "/home/$usuario/.nanorc"
+    echo "set softwrap" >> "$archivo"
     # Informacion (nombre archivo, nº de lineas, nº de caracteres, ...).
-    echo "set constantshow" >> "/home/$usuario/.nanorc"
-    echo "set minibar" >> "/home/$usuario/.nanorc"
+    echo "set constantshow" >> "$archivo"
+    echo "set minibar" >> "$archivo"
 
     if [ $? != 0 ]; then
         _error
@@ -554,14 +591,18 @@ _configurar_nanorc () {
 _configurar_hidden () {
     _titulo "Configurando hidden      " 14
 
+    # Variables
+    local archivo="$carpeta_usuario/.hidden"
+    readonly archivo
+
     # Usuario no root.
     # Este archivo oculta las carpetas y archivos escritos aqui
-    echo "Escritorio" >> "/home/$usuario/.hidden"
-    echo "Imágenes" >> "/home/$usuario/.hidden"
-    echo "Música" >> "/home/$usuario/.hidden"
-    echo "Plantillas" >> "/home/$usuario/.hidden"
-    echo "Público" >> "/home/$usuario/.hidden"
-    echo "Vídeos" >> "/home/$usuario/.hidden"
+    echo "Escritorio" >> "$archivo"
+    echo "Imágenes" >> "$archivo"
+    echo "Música" >> "$archivo"
+    echo "Plantillas" >> "$archivo"
+    echo "Público" >> "$archivo"
+    echo "Vídeos" >> "$archivo"
 
     if [ $? != 0 ]; then
         _error
@@ -578,17 +619,21 @@ _configurar_hidden () {
 _configurar_redshift () {
     _titulo "Configurando redshift    " 15
 
-    echo "[redshift]" >> "/home/$usuario/.config/redshift.conf"
-    echo "temp-day=5780" >> "/home/$usuario/.config/redshift.conf"
-    echo "temp-night=5780" >> "/home/$usuario/.config/redshift.conf"
-    echo "fade=0" >> "/home/$usuario/.config/redshift.conf"
-    echo "gamma=0.8" >> "/home/$usuario/.config/redshift.conf"
-    echo "location-provider=manual" >> "/home/$usuario/.config/redshift.conf"
-    echo "adjustment-method=randr" >> "/home/$usuario/.config/redshift.conf"
-    echo "[manual]" >> "/home/$usuario/.config/redshift.conf"
-    echo "lat=41.64" >> "/home/$usuario/.config/redshift.conf"
-    echo "lon=-0.88" >> "/home/$usuario/.config/redshift.conf"
-    echo "[randr]" >> "/home/$usuario/.config/redshift.conf"
+    # Variables
+    local archivo="$carpeta_usuario/.config/redshift.conf"
+    readonly archivo
+
+    echo "[redshift]" >> "$archivo"
+    echo "temp-day=5780" >> "$archivo"
+    echo "temp-night=5780" >> "$archivo"
+    echo "fade=0" >> "$archivo"
+    echo "gamma=0.8" >> "$archivo"
+    echo "location-provider=manual" >> "$archivo"
+    echo "adjustment-method=randr" >> "$archivo"
+    echo "[manual]" >> "$archivo"
+    echo "lat=41.64" >> "$archivo"
+    echo "lon=-0.88" >> "$archivo"
+    echo "[randr]" >> "$archivo"
 
     if [ $? != 0 ]; then
         _error
