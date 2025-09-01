@@ -522,9 +522,9 @@ _configurar_aliases () {
 
     # 1. Usuario root.
     archivo=".bashrc"
-    echo "alias actualizate='apt-get update && apt list --upgradable && apt-get upgrade'" >> ~/$archivo
+    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/$archivo
     echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/$archivo
-    echo "alias limpiate='apt-get clean && apt-get autoclean && apt-get autopurge && apt-get purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/$archivo
+    echo "alias limpiate='apt clean && apt autoclean && apt autopurge && apt purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/$archivo
     echo "alias ls='ls -shop --color=auto'" >> ~/$archivo
     echo "alias reboot='sync && reboot'" >> ~/$archivo
 
