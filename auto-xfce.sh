@@ -281,7 +281,11 @@ _configurar_servicios () {
     _titulo "Configurando servicios    " 6
 
     # Deshabilitar servicio de bluetooth.
-    systemctl disable bluetooth
+    if systemctl is-active --quiet bluetooth; then
+        systemctl stop bluetooth
+        systemctl disable bluetooth
+        systemctl mask bluetooth
+    fi
 
     if [ $? != 0 ]; then
         _error
