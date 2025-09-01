@@ -34,7 +34,6 @@ _limpiar_pc () {
     # Limpiar pc.
     apt clean -y
     apt autoclean -y
-    apt autoremove -y
     apt autopurge -y
     apt purge -y $(apt-mark showremove)
     journalctl --vacuum-size=100M
