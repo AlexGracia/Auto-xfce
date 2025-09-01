@@ -45,7 +45,7 @@ _comprobaciones_iniciales () {
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
-    apt -h >/dev/null
+    apt-get -h >/dev/null
     if [ $? != 0 ]; then
         _error "Debes tener la paqueteria apt."
     fi
@@ -61,7 +61,7 @@ _comprobaciones_iniciales () {
     wget -h >/dev/null
     # Intentar instalar si falta.
     if [ $? != 0 ]; then
-        apt install -y wget
+        apt-get install -y wget
         if [ $? != 0 ]; then
             _error "Problemas con la instalacion de wget."
         fi
@@ -132,8 +132,8 @@ _actualizar_paquetes () {
     _titulo "Actualizando paquetes     " 3
 
     # Actualizar paquetes.
-    apt update
-    apt upgrade -y
+    apt-get update
+    apt-get upgrade -y
 
     if [ $? != 0 ]; then
         _error
@@ -173,10 +173,10 @@ _onlyoffice () {
     echo 'deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main' | tee -a /etc/apt/sources.list.d/onlyoffice.list
 
     # Actualizar lista de paquetes.
-    apt update
+    apt-get update
 
     # Instalar OnlyOffice.
-    apt install -y onlyoffice-desktopeditors
+    apt-get install -y onlyoffice-desktopeditors
 
     if [ $? != 0 ]; then
         _error "Problemas con la instalacion de OnlyOffice."
@@ -198,10 +198,10 @@ Pin-Priority: 1000
 ' | tee /etc/apt/preferences.d/mozilla
 
     # Actualizar lista de paquetes.
-    apt update
+    apt-get update
 
     # Instalar Firefox.
-    apt install -y firefox firefox-l10n-es-es
+    apt-get install -y firefox firefox-l10n-es-es
 
     if [ $? != 0 ]; then
         _error "Problemas con la instalacion de Firefox."
@@ -216,7 +216,7 @@ _instalar_paquetes () {
 
     # Instalar paquetes.
     if [ $opcion = "f" ]; then
-        apt install -y $paquetes_frecuentes
+        apt-get install -y $paquetes_frecuentes
 
         if [ $? != 0 ]; then
             _error
@@ -225,7 +225,7 @@ _instalar_paquetes () {
         # Instalar OnlyOffice.
         _onlyoffice
     else
-        apt install -y $paquetes_infrecuentes
+        apt-get install -y $paquetes_infrecuentes
 
         if [ $? != 0 ]; then
             _error
@@ -522,9 +522,9 @@ _configurar_aliases () {
 
     # 1. Usuario root.
     archivo=".bashrc"
-    echo "alias actualizate='apt update && apt list --upgradable && apt upgrade'" >> ~/$archivo
+    echo "alias actualizate='apt-get update && apt list --upgradable && apt-get upgrade'" >> ~/$archivo
     echo "alias exit='echo > ~/.bash_history && sync && exit'" >> ~/$archivo
-    echo "alias limpiate='apt clean && apt autoclean && apt autoremove && apt autopurge && apt purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/$archivo
+    echo "alias limpiate='apt-get clean && apt-get autoclean && apt-get autopurge && apt-get purge $(apt-mark showremove) && journalctl --vacuum-size=100M'" >> ~/$archivo
     echo "alias ls='ls -shop --color=auto'" >> ~/$archivo
     echo "alias reboot='sync && reboot'" >> ~/$archivo
 
@@ -715,10 +715,11 @@ _iniciar
 _finalizar () {
     # Limpiar y ordenar.
     # Paquetes.
-    apt clean -y
-    apt autoclean -y
-    apt autoremove -y
-    apt autopurge -y
+    apt-get clean -y
+    apt-get autoclean -y
+    apt-get autopurge -y
+    apt-get purge $(apt-mark showremove)
+    journalctl --vacuum-size=100M
     sync
 
     # Preguntar reinicio,
