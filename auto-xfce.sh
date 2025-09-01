@@ -45,7 +45,7 @@ _comprobaciones_iniciales () {
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
-    apt-get -h >/dev/null
+    type -f apt-get >/dev/null
     if [ $? != 0 ]; then
         _error "Debes tener la paqueteria apt."
     fi
@@ -58,7 +58,7 @@ _comprobaciones_iniciales () {
 
     # Comprobar el paquete wget.
     echo "Comprobando el paquete wget ..."
-    wget -h >/dev/null
+    type -f wget >/dev/null
     # Intentar instalar si falta.
     if [ $? != 0 ]; then
         apt-get install -y wget
