@@ -601,12 +601,12 @@ _configurar_hidden () {
 
     # Usuario no root.
     # Este archivo oculta las carpetas y archivos escritos aqui
-    xdg-user-dir DESKTOP | cut -d/ -f4 -s >> "$archivo"
-    xdg-user-dir TEMPLATES | cut -d/ -f4 -s >> "$archivo"
-    xdg-user-dir PUBLICSHARE | cut -d/ -f4 -s >> "$archivo"
-    xdg-user-dir MUSIC | cut -d/ -f4 -s >> "$archivo"
-    xdg-user-dir PICTURES | cut -d/ -f4 -s >> "$archivo"
-    xdg-user-dir VIDEOS | cut -d/ -f4 -s >> "$archivo"
+    su $usuario -c "xdg-user-dir DESKTOP | cut -d/ -f4 -s" >> "$archivo"
+    su $usuario -c "xdg-user-dir TEMPLATES | cut -d/ -f4 -s" >> "$archivo"
+    su $usuario -c "xdg-user-dir PUBLICSHARE | cut -d/ -f4 -s" >> "$archivo"
+    su $usuario -c "xdg-user-dir MUSIC | cut -d/ -f4 -s" >> "$archivo"
+    su $usuario -c "xdg-user-dir PICTURES | cut -d/ -f4 -s" >> "$archivo"
+    su $usuario -c "xdg-user-dir VIDEOS | cut -d/ -f4 -s" >> "$archivo"
 
     if [ $? != 0 ]; then
         _error
