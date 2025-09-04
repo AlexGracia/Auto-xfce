@@ -40,7 +40,7 @@ _comprobaciones_iniciales () {
 
     # Comprobar el paquete wget.
     echo "Comprobando el paquete wget ..."
-    type -f wget >/dev/null
+    command -v wget >/dev/null
     if [ $? != 0 ]; then
         _error "Problemas con la instalacion de wget."
     fi

@@ -7,12 +7,34 @@
 #════════════════════════════════════════
 
 # Variables globales
+readonly URL="https://github.com/AlexGracia/Auto-xfce"
 readonly desatendido=$1
 opcion=$1
 readonly paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
 readonly paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
 usuario=""
 carpeta_usuario=""
+
+# Funcion para mostrar ayuda.
+_ayuda () {
+    echo
+    echo "Modo de empleo: sh auto-xfce.sh [OPCIÓN]"
+    echo
+    echo "Instala Xfce mínimo, paquetes, configuraciones y personalizaciones."
+    echo
+    echo "Opciones:"
+    echo "  f             uso frecuente y desatendido (predeterminado)"
+    echo "  i             uso infrecuente y desatendido"
+    echo "  --help        muestra esta ayuda y sale"
+    echo "  --version     informa la versión y sale"
+    echo
+    echo "Estado de salida:"
+    echo "  0             si todo fue bien"
+    echo "  1             si hubo problemas"
+    echo
+    echo "URL: $URL"
+    exit
+}
 
 # Funcion para mostrar un titulo descriptivo del paso actual.
 _titulo () {
@@ -35,27 +57,6 @@ _ok () {
     sync
 }
 
-# Funcion para mostrar ayuda.
-_ayuda () {
-    echo
-    echo "Modo de empleo: sh auto-xfce.sh [OPCIÓN]"
-    echo
-    echo "Instala Xfce mínimo, paquetes, configuraciones y personalizaciones."
-    echo
-    echo "Opciones:"
-    echo "  f             uso frecuente y desatendido (predeterminado)"
-    echo "  i             uso infrecuente y desatendido"
-    echo "  --help        muestra esta ayuda y sale"
-    echo "  --version     informa la versión y sale"
-    echo
-    echo "Estado de salida:"
-    echo "  0             si todo fue bien"
-    echo "  1             si hubo problemas"
-    echo
-    echo "URL: <https://github.com/AlexGracia/Auto-xfce>"
-    exit
-}
-
 #
 #   1. Comprobaciones iniciales
 #════════════════════════════════════════
@@ -64,14 +65,9 @@ _ayuda () {
 _comprobaciones_iniciales () {
     _titulo "Comprobaciones iniciales  " 1
 
-    # Mostrar ayuda.
-    if [ "$opcion" = "--help" ]; then
-        _ayuda
-    fi
-
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
-    type -f apt-get >/dev/null
+    command -v apt-get >/dev/null
     if [ $? != 0 ]; then
         _error "Debes tener la paqueteria apt."
     fi
@@ -84,7 +80,7 @@ _comprobaciones_iniciales () {
 
     # Comprobar el paquete wget.
     echo "Comprobando el paquete wget ..."
-    type -f wget >/dev/null
+    command -v wget >/dev/null
     # Intentar instalar si falta.
     if [ $? != 0 ]; then
         apt-get install -y wget
@@ -721,6 +717,11 @@ _iniciar () {
 ██╔══██║██║   ██║   ██║   ██║   ██║╚════╝██╔██╗ ██╔══╝  ██║     ██╔══╝
 ██║  ██║╚██████╔╝   ██║   ╚██████╔╝     ██╔╝ ██╗██║     ╚██████╗███████╗
 ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝      ╚═╝  ╚═╝╚═╝      ╚═════╝╚══════╝"
+
+    # Mostrar ayuda.
+    if [ "$opcion" = "--help" ]; then
+        _ayuda
+    fi
 
     # Ejecucion de funciones.
     _comprobaciones_iniciales
