@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # Descripcion: Script que instala Xfce mínimo, paquetes, configuraciones y personalizaciones.
 # Autor: Alex Gracia
-# Version: 0.16.0
+# Version: 0.17.0
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
@@ -663,6 +663,27 @@ _configurar_brillo () {
     _ok
 }
 
+#
+#   17. Configurar shell
+#════════════════════════════════════════
+
+# Funcion para configurar la shell predeterminada.
+_configurar_shell () {
+    _titulo "Configurando shell       " 17
+
+    if [ $opcion = "f" ]; then
+        return
+    fi
+
+    chsh $usuario -s $(which bash)
+
+    if [ $? != 0 ]; then
+        _error
+    fi
+
+    _ok
+}
+
 # Funcion para iniciar el script.
 _iniciar () {
     # Bienvenida.
@@ -707,6 +728,8 @@ _iniciar () {
     _configurar_redshift
 
     _configurar_brillo
+
+    _configurar_shell
 }
 
 _iniciar
