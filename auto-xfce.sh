@@ -26,7 +26,6 @@ _ayuda () {
     echo "  f             uso frecuente y desatendido (predeterminado)"
     echo "  i             uso infrecuente y desatendido"
     echo "  --help        muestra esta ayuda y sale"
-    echo "  --version     informa la versión y sale"
     echo
     echo "Estado de salida:"
     echo "  0             si todo fue bien"
