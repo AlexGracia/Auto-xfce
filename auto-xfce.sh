@@ -17,7 +17,7 @@ carpeta_usuario=""
 # Funcion para mostrar un titulo descriptivo del paso actual.
 _titulo () {
     echo
-    echo "  $1 ($2 de 16)"
+    echo "  $1 ($2 de 17)"
     echo "════════════════════════════════════════"
 }
 
@@ -35,6 +35,27 @@ _ok () {
     sync
 }
 
+# Funcion para mostrar ayuda.
+_ayuda () {
+    echo
+    echo "Modo de empleo: sh auto-xfce.sh [OPCIÓN]"
+    echo
+    echo "Instala Xfce mínimo, paquetes, configuraciones y personalizaciones."
+    echo
+    echo "Opciones:"
+    echo "  f             uso frecuente y desatendido (predeterminado)"
+    echo "  i             uso infrecuente y desatendido"
+    echo "  --help        muestra esta ayuda y sale"
+    echo "  --version     informa la versión y sale"
+    echo
+    echo "Estado de salida:"
+    echo "  0             si todo fue bien"
+    echo "  1             si hubo problemas"
+    echo
+    echo "URL: <https://github.com/AlexGracia/Auto-xfce>"
+    exit
+}
+
 #
 #   1. Comprobaciones iniciales
 #════════════════════════════════════════
@@ -42,6 +63,11 @@ _ok () {
 # Funcion para las comprobaciones iniciales.
 _comprobaciones_iniciales () {
     _titulo "Comprobaciones iniciales  " 1
+
+    # Mostrar ayuda.
+    if [ "$opcion" = "--help" ]; then
+        _ayuda
+    fi
 
     # Comprobar la paqueteria.
     echo "Comprobando la paqueteria ..."
