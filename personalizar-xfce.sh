@@ -221,12 +221,19 @@ _personalizar_xfce () {
     xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s $tamanio_cursor
 
     # Panel
+    # Borrar panel 2
+    xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
+    # Dejar un panel
+    xfconf-query -c xfce4-panel -p /panels -t int -a -s 1
     # Tamaño de la fila, 32 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/size -s 32
     # Tamaño de los iconos, 16 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
     # Mostrar el indicador del modo de presentación
     xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s true
+
+    # Recargar panel
+    xfce4-panel -r
 
     # Recargar escritorio.
     #xfdesktop --reload
