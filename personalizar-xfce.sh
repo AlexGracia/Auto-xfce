@@ -2,7 +2,7 @@
 # Descripcion: Script que personaliza Xfce.
 # Autor: Alex Gracia
 # Version: 0.1.0
-# Requisitos: conexion de red y paquete wget
+# Requisitos: conexion de red, paquete wget y p7zip-full
 # URL: https://github.com/AlexGracia/Auto-xfce
 #════════════════════════════════════════
 
@@ -42,7 +42,14 @@ _comprobaciones_iniciales () {
     echo "Comprobando el paquete wget ..."
     command -v wget >/dev/null
     if [ $? != 0 ]; then
-        _error "Problemas con la instalacion de wget."
+        _error "Falta el paquete wget."
+    fi
+
+    # Comprobar el paquete p7zip-full.
+    echo "Comprobando el paquete p7zip-full ..."
+    command -v 7z >/dev/null
+    if [ $? != 0 ]; then
+        _error "Falta el paquete p7zip-full."
     fi
 
     _ok
