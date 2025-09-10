@@ -114,13 +114,17 @@ _personalizar_xfce () {
     _titulo "Personalizar Xfce          " 3
 
     # Variables
-    readonly fuente="Serif Bold 18"
-    readonly tamanio_cursor="48"
-    readonly carpeta_iconos="$HOME/.icons"
-    readonly carpeta_temas="$HOME/.themes"
-    estilo=""
-    tema=""
-    cursor=""
+    local fuente="Serif Bold 18"
+    local tamanio_cursor="48"
+    local carpeta_iconos="$HOME/.icons"
+    local carpeta_temas="$HOME/.themes"
+    readonly fuente
+    readonly tamanio_cursor
+    readonly carpeta_iconos
+    readonly carpeta_temas
+    local estilo=""
+    local tema=""
+    local cursor=""
 
     # Carpeta temporal de trabajo
     cd /tmp/
