@@ -11,7 +11,7 @@ readonly URL="https://github.com/AlexGracia/Auto-xfce"
 readonly desatendido=$1
 opcion=$1
 readonly paquetes_frecuentes="anacron brightnessctl cups evince galculator gthumb lazpaint-qt5 mousepad network-manager network-manager-gnome p7zip-full printer-driver-all redshift redshift-gtk sakura simple-scan sudo system-config-printer thunar-archive-plugin ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter xfce4-whiskermenu-plugin zram-tools"
-readonly paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc qpdf redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
+readonly paquetes_infrecuentes="brightnessctl chromium evince firejail gimp git gnome-boxes gnumeric gpdf gpicview jigdo network-manager network-manager-gnome optipng p7zip-full pandoc redshift redshift-gtk sakura sd sudo ufw vlc xfce4 xfce4-power-manager xfce4-screenshooter zram-tools"
 usuario=""
 carpeta_usuario=""
 
