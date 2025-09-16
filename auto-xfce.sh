@@ -648,6 +648,11 @@ _configurar_redshift () {
     local archivo="$carpeta_usuario/.config/redshift.conf"
     readonly archivo
 
+    # Asegurar existencia de carpeta .config
+    if [ ! -d "$carpeta_usuario/.config" ]; then
+        mkdir "$carpeta_usuario/.config"
+    fi
+
     echo "[redshift]" >> "$archivo"
     echo "temp-day=5780" >> "$archivo"
     echo "temp-night=5780" >> "$archivo"
