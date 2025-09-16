@@ -14,6 +14,11 @@ Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes, configuracio
 - Usuario root
 - Paquete [wget](https://www.gnu.org/software/wget/)
 
+## Demostración
+
+### Auto-xfce (root)
+![demo-auto](.github/img/demo-auto.gif)
+
 ## Instalación
 
 ### Auto-xfce (root)
