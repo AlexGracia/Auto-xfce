@@ -180,6 +180,7 @@ _obtener_usuario () {
         fi
     fi
     readonly carpeta_usuario="/home/$usuario"
+    su $usuario -c "xdg-user-dirs-update"
 }
 
 # Funcion para instalar OnlyOffice, desde su repositorio oficial.
