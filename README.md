@@ -19,6 +19,9 @@ Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes, configuracio
 ### Auto-xfce (root)
 ![demo-auto](.github/img/demo-auto.gif)
 
+### Personalizar-xfce (no root)
+![demo-personalizar](.github/img/demo-personalizar.gif)
+
 ## Instalación
 
 ### Auto-xfce (root)
