@@ -178,14 +178,14 @@ _personalizar_xfce () {
 
         # Panel
         # Estilo, color sólido
-        xfconf-query --create -c xfce4-panel -p /panels/panel-1/background-style -s 0
+        xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-style -t int -s 0
         # Posicionar abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
 
         # Mostrar iconos del escritorio
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -s true
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-home -s true
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -s true
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t bool -s true
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-home -t bool -s true
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -t bool -s true
 
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
@@ -202,16 +202,16 @@ _personalizar_xfce () {
 
         # Panel
         # Estilo, color sólido
-        xfconf-query --create -c xfce4-panel -p /panels/panel-1/background-style -s 1
+        xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-style -t int -s 1
         # Color de fondo, negro
-        xfconf-query --create -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
+        xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
         # Posicionar arriba
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=6;x=0;y=0'
 
         # Ocultar iconos del escritorio
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -s false
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-home -s false
-        xfconf-query --create -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -s false
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t bool -s false
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-home -t bool -s false
+        xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -t bool -s false
 
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|C'
@@ -241,7 +241,7 @@ _personalizar_xfce () {
     # Tamaño de los iconos, 16 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
     # Mostrar el indicador del modo de presentación
-    xfconf-query --create -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -s true
+    xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -t bool -s true
 
     # Recargar panel
     xfce4-panel -r
