@@ -699,10 +699,10 @@ _configurar_shell () {
     _titulo "Configurando shell       " 17
 
     if [ $opcion = "f" ]; then
-        return
+        chsh $usuario -s $(which sh)
+    else
+        chsh $usuario -s $(which bash)
     fi
-
-    chsh $usuario -s $(which bash)
 
     if [ $? != 0 ]; then
         _error
