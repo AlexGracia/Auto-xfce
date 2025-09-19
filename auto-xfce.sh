@@ -187,7 +187,7 @@ _obtener_usuario () {
 # URL: https://helpcenter.onlyoffice.com/installation/desktop-install-ubuntu.aspx
 _onlyoffice () {
     # Añadir repositorio.
-    mkdir -p -m 700 "$carpeta_usuario/.gnupg"
+    mkdir -p -m 700 ~/.gnupg
     gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
     chmod 644 /tmp/onlyoffice.gpg
     chown root:root /tmp/onlyoffice.gpg
