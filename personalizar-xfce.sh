@@ -199,7 +199,7 @@ _personalizar_xfce () {
         # Fuente
         if [ ! -f "fuente.zip" ]; then
             echo "Descargando fuente ..."
-            wget -q --show-progress -O fuente.zip github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+            wget -q --show-progress -O fuente.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
         fi
         echo "Descomprimiendo fuente ..."
         7z x -y fuente.zip '-xr!*.md' >/dev/null 2>&1
@@ -208,7 +208,7 @@ _personalizar_xfce () {
         if [ ! -d "$carpeta_fuentes" ]; then
             mkdir $carpeta_fuentes
         fi
-        cp "*.ttf" $carpeta_fuentes
+        cp *.ttf $carpeta_fuentes
 
         estilo="Adwaita-dark"
 
