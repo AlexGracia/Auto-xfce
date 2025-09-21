@@ -135,11 +135,15 @@ _personalizar_xfce () {
 
     # Descargas
     # Cursor
-    echo "Descargando cursor ..."
-    wget -q --show-progress -O cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
+    if [ ! -f "cursores.zip" ]; then
+        echo "Descargando cursor ..."
+        wget -q --show-progress -O cursores.zip https://github.com/vinceliuice/Fluent-icon-theme/archive/refs/heads/master.zip
+    fi
     # Tema
-    echo "Descargando tema ..."
-    wget -q --show-progress -O temas.zip https://github.com/AlexGracia/Temas-xfwm4/archive/refs/heads/master.zip
+    if [ ! -f "temas.zip" ]; then
+        echo "Descargando tema ..."
+        wget -q --show-progress -O temas.zip https://github.com/AlexGracia/Temas-xfwm4/archive/refs/heads/master.zip
+    fi
 
     # Carpetas creadas
     # Iconos
