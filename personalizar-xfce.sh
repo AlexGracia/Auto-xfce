@@ -211,6 +211,8 @@ _personalizar_xfce () {
         cp *.ttf $carpeta_fuentes
         echo "Actualizando lista de fuentes ..."
         fc-cache -f
+        echo "Seleccionando fuente ..."
+        xfconf-query -c xsettings -p /Gtk/MonospaceFontName -s "Hack Nerd Font Bold 18"
 
         estilo="Adwaita-dark"
 
