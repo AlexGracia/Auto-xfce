@@ -118,10 +118,12 @@ _personalizar_xfce () {
     local tamanio_cursor="48"
     local carpeta_iconos="$HOME/.icons"
     local carpeta_temas="$HOME/.themes"
+    local carpeta_fuentes="$HOME/.local/share/fonts"
     readonly fuente
     readonly tamanio_cursor
     readonly carpeta_iconos
     readonly carpeta_temas
+    readonly carpeta_fuentes
     local estilo=""
     local tema=""
     local cursor=""
@@ -194,6 +196,20 @@ _personalizar_xfce () {
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
     else
+        # Fuente
+        if [ ! -f "fuente.zip" ]; then
+            echo "Descargando fuente ..."
+            wget -q --show-progress -O fuente.zip github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+        fi
+        echo "Descomprimiendo fuente ..."
+        7z x -y fuente.zip '-xr!*.md' >/dev/null 2>&1
+        sleep 0.5
+        echo "Instalando fuente ..."
+        if [ ! -d "$carpeta_fuentes" ]; then
+            mkdir $carpeta_fuentes
+        fi
+        cp "*.ttf" $carpeta_fuentes
+
         estilo="Adwaita-dark"
 
         # Tema
