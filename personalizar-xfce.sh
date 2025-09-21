@@ -209,6 +209,8 @@ _personalizar_xfce () {
             mkdir $carpeta_fuentes
         fi
         cp *.ttf $carpeta_fuentes
+        echo "Actualizando lista de fuentes ..."
+        fc-cache -f
 
         estilo="Adwaita-dark"
 
