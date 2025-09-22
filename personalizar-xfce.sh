@@ -117,7 +117,7 @@ _personalizar_xfce () {
     local fuente="Serif Bold 18"
     local tamanio_cursor="48"
     local carpeta_local="$HOME/.local/share"
-    local carpeta_iconos="$carpeta_local/icons"
+    local carpeta_iconos="$HOME/.icons"
     local carpeta_temas="$carpeta_local/themes"
     local carpeta_fuentes="$carpeta_local/fonts"
     readonly fuente
