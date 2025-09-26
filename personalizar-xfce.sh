@@ -197,6 +197,12 @@ _personalizar_xfce () {
 
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
+
+        # Notificaciones abajo a la derecha
+        xfconf-query -n -c xfce4-notifyd -p /notify-location -t uint -s 3
+
+        # Deshabilitar menú de aplicaciones en el escritorio
+        xfconf-query -n -c xfce4-desktop -p /desktop-menu/show -t bool -s false
     else
         # Fuente
         if [ ! -f "fuente.zip" ]; then
@@ -241,6 +247,9 @@ _personalizar_xfce () {
 
         # Botones del título de las ventanas
         xfconf-query -c xfwm4 -p /general/button_layout -s '|C'
+
+        # Notificaciones abajo a la izquierda
+        xfconf-query -n -c xfce4-notifyd -p /notify-location -t uint -s 1
     fi
 
     # Apariencia
