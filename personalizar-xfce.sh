@@ -188,7 +188,7 @@ _personalizar_xfce () {
         # Estilo, color sólido
         xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-style -t int -s 0
         # Posicionar abajo
-        xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=8;x=0;y=0'
+        xfconf-query -c xfce4-panel -p /panels/panel-1/position -n -t string -s 'p=8;x=0;y=0'
 
         # Mostrar iconos del escritorio
         xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t bool -s true
@@ -196,7 +196,7 @@ _personalizar_xfce () {
         xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -t bool -s true
 
         # Botones del título de las ventanas
-        xfconf-query -c xfwm4 -p /general/button_layout -s '|HMC'
+        xfconf-query -c xfwm4 -p /general/button_layout -n -t string -s '|HMC'
 
         # Notificaciones abajo a la derecha
         xfconf-query -n -c xfce4-notifyd -p /notify-location -t uint -s 3
@@ -220,7 +220,7 @@ _personalizar_xfce () {
         echo "Actualizando lista de fuentes ..."
         fc-cache -f
         echo "Seleccionando fuente ..."
-        xfconf-query -c xsettings -p /Gtk/MonospaceFontName -s "Hack Nerd Font Bold 18"
+        xfconf-query -c xsettings -p /Gtk/MonospaceFontName -n -t string -s "Hack Nerd Font Bold 18"
 
         estilo="Adwaita-dark"
 
@@ -238,7 +238,7 @@ _personalizar_xfce () {
         # Color de fondo, negro
         xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
         # Posicionar arriba
-        xfconf-query -c xfce4-panel -p /panels/panel-1/position -s 'p=6;x=0;y=0'
+        xfconf-query -c xfce4-panel -p /panels/panel-1/position -n -t string -s 'p=6;x=0;y=0'
 
         # Ocultar iconos del escritorio
         xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t bool -s false
@@ -246,7 +246,7 @@ _personalizar_xfce () {
         xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -t bool -s false
 
         # Botones del título de las ventanas
-        xfconf-query -c xfwm4 -p /general/button_layout -s '|C'
+        xfconf-query -c xfwm4 -p /general/button_layout -n -t string -s '|C'
 
         # Notificaciones abajo a la izquierda
         xfconf-query -n -c xfce4-notifyd -p /notify-location -t uint -s 1
@@ -259,8 +259,8 @@ _personalizar_xfce () {
     # Gestor de ventanas
     xfconf-query -c xfwm4 -p /general/theme -s $tema
     xfconf-query -c xfwm4 -p /general/title_font -s "$fuente"
-    xfconf-query -c xfwm4 -p /general/use_compositing -s false
-    xfconf-query -c xfwm4 -p /general/workspace_count -s 1
+    xfconf-query -c xfwm4 -p /general/use_compositing -n -t bool -s false
+    xfconf-query -c xfwm4 -p /general/workspace_count -n -t int -s 1
 
     # Cursor
     xfconf-query -c xsettings -p /Gtk/CursorThemeName -s $cursor
@@ -272,9 +272,9 @@ _personalizar_xfce () {
     # Dejar un panel
     xfconf-query -c xfce4-panel -p /panels -t int -a -s 1
     # Tamaño de la fila, 32 px
-    xfconf-query -c xfce4-panel -p /panels/panel-1/size -s 32
+    xfconf-query -c xfce4-panel -p /panels/panel-1/size -n -t int -s 32
     # Tamaño de los iconos, 16 px
-    xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -s 16
+    xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -n -t int -s 16
     # Mostrar el indicador del modo de presentación
     xfconf-query -n -c xfce4-power-manager -p /xfce4-power-manager/show-presentation-indicator -t bool -s true
 
