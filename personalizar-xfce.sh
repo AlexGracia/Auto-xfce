@@ -250,6 +250,9 @@ _personalizar_xfce () {
 
         # Notificaciones abajo a la izquierda
         xfconf-query -n -c xfce4-notifyd -p /notify-location -t uint -s 1
+
+        # Habilitar menú de aplicaciones en el escritorio
+        xfconf-query -n -c xfce4-desktop -p /desktop-menu/show -t bool -s true
     fi
 
     # Apariencia
