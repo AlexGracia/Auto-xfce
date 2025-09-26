@@ -174,6 +174,10 @@ _personalizar_xfce () {
 
     # todo  
     echo "Aplicando personalización ..."
+    # Borrar plugins
+    xfconf-query -c xfce4-panel -p /plugins -rR
+    xfconf-query -c xfce4-panel -p /panels/panel-1/plugin-ids -r
+
     if [ $opcion = "f" ]; then
         estilo="HighContrast"
         # Tema
@@ -189,9 +193,9 @@ _personalizar_xfce () {
         xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-style -t int -s 0
         # Posicionar abajo
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -n -t string -s 'p=8;x=0;y=0'
+        # Tamaño de la fila, 32 px
+        xfconf-query -c xfce4-panel -p /panels/panel-1/size -n -t int -s 32
         # Elementos
-        xfconf-query -c xfce4-panel -p /plugins -rR
-        xfconf-query -c xfce4-panel -p /panels/panel-1/plugin-ids -r
         xfconf-query -c xfce4-panel -p /panels/panel-1/plugin-ids -n -t int -s 1 -t int -s 2 -t int -s 3 -t int -s 4 -t int -s 5 -t int -s 6 -t int -s 7 -t int -s 8
         xfconf-query -c xfce4-panel -p /plugins/plugin-1 -n -t string -s whiskermenu
         xfconf-query -c xfce4-panel -p /plugins/plugin-2 -n -t string -s tasklist
@@ -259,6 +263,26 @@ _personalizar_xfce () {
         xfconf-query -n -c xfce4-panel -p /panels/panel-1/background-rgba -t double -s 0.000000 -t double -s 0.000000 -t double -s 0.000000 -t double -s 1.000000
         # Posicionar arriba
         xfconf-query -c xfce4-panel -p /panels/panel-1/position -n -t string -s 'p=6;x=0;y=0'
+        # Tamaño de la fila, 52 px
+        xfconf-query -c xfce4-panel -p /panels/panel-1/size -n -t int -s 52
+        # Elementos
+        xfconf-query -c xfce4-panel -p /panels/panel-1/plugin-ids -n -t int -s 1 -t int -s 2 -t int -s 3 -t int -s 4 -t int -s 5 -t int -s 6 -t int -s 7
+        xfconf-query -c xfce4-panel -p /plugins/plugin-1 -n -t string -s separator
+        xfconf-query -c xfce4-panel -p /plugins/plugin-1/expand -n -t bool -s true
+        xfconf-query -c xfce4-panel -p /plugins/plugin-1/style -n -t int -s 0
+
+        xfconf-query -c xfce4-panel -p /plugins/plugin-2 -n -t string -s clock
+        xfconf-query -c xfce4-panel -p /plugins/plugin-2/digital-layout -n -t int -s 3
+        xfconf-query -c xfce4-panel -p /plugins/plugin-2/digital-time-font -n -t string -s "Hack Nerd Font Bold 40"
+
+        xfconf-query -c xfce4-panel -p /plugins/plugin-3 -n -t string -s separator
+        xfconf-query -c xfce4-panel -p /plugins/plugin-3/expand -n -t bool -s true
+        xfconf-query -c xfce4-panel -p /plugins/plugin-3/style -n -t int -s 0
+
+        xfconf-query -c xfce4-panel -p /plugins/plugin-4 -n -t string -s pulseaudio
+        xfconf-query -c xfce4-panel -p /plugins/plugin-5 -n -t string -s systray
+        xfconf-query -c xfce4-panel -p /plugins/plugin-6 -n -t string -s notification-plugin
+        xfconf-query -c xfce4-panel -p /plugins/plugin-7 -n -t string -s power-manager-plugin
 
         # Ocultar iconos del escritorio
         xfconf-query -n -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t bool -s false
@@ -294,8 +318,6 @@ _personalizar_xfce () {
     xfconf-query -c xfce4-panel -p /panels/panel-2 -rR
     # Dejar un panel
     xfconf-query -c xfce4-panel -p /panels -t int -a -s 1
-    # Tamaño de la fila, 32 px
-    xfconf-query -c xfce4-panel -p /panels/panel-1/size -n -t int -s 32
     # Tamaño de los iconos, 16 px
     xfconf-query -c xfce4-panel -p /panels/panel-1/icon-size -n -t int -s 16
     # Mostrar el indicador del modo de presentación
