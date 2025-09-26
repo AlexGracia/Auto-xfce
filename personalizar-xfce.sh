@@ -115,7 +115,7 @@ _personalizar_xfce () {
 
     # Variables
     local fuente="Serif Bold 18"
-    local tamanio_cursor="48"
+    local tamanio_cursor=48
     local carpeta_local="$HOME/.local/share"
     local carpeta_iconos="$HOME/.icons"
     local carpeta_temas="$carpeta_local/themes"
@@ -253,18 +253,18 @@ _personalizar_xfce () {
     fi
 
     # Apariencia
-    xfconf-query -c xsettings -p /Net/ThemeName -s $estilo
-    xfconf-query -c xsettings -p /Gtk/FontName -s "$fuente"
+    xfconf-query -c xsettings -p /Net/ThemeName -n -t string -s $estilo
+    xfconf-query -c xsettings -p /Gtk/FontName -n -t string -s "$fuente"
 
     # Gestor de ventanas
-    xfconf-query -c xfwm4 -p /general/theme -s $tema
-    xfconf-query -c xfwm4 -p /general/title_font -s "$fuente"
+    xfconf-query -c xfwm4 -p /general/theme -n -t string -s $tema
+    xfconf-query -c xfwm4 -p /general/title_font -n -t string -s "$fuente"
     xfconf-query -c xfwm4 -p /general/use_compositing -n -t bool -s false
     xfconf-query -c xfwm4 -p /general/workspace_count -n -t int -s 1
 
     # Cursor
-    xfconf-query -c xsettings -p /Gtk/CursorThemeName -s $cursor
-    xfconf-query -c xsettings -p /Gtk/CursorThemeSize -s $tamanio_cursor
+    xfconf-query -c xsettings -p /Gtk/CursorThemeName -n -t string -s $cursor
+    xfconf-query -c xsettings -p /Gtk/CursorThemeSize -n -t int -s $tamanio_cursor
 
     # Panel
     # Borrar panel 2
