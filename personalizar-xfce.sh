@@ -208,6 +208,7 @@ _personalizar_xfce () {
 
         xfconf-query -c xfce4-panel -p /plugins/plugin-5 -n -t string -s systray
         xfconf-query -c xfce4-panel -p /plugins/plugin-5/square-icons -n -t bool -s true
+        xfconf-query -c xfce4-panel -p /plugins/plugin-5/icon-size -n -t int -s 22
 
         xfconf-query -c xfce4-panel -p /plugins/plugin-6 -n -t string -s power-manager-plugin
         xfconf-query -c xfce4-panel -p /plugins/plugin-7 -n -t string -s notification-plugin
@@ -285,6 +286,7 @@ _personalizar_xfce () {
 
         xfconf-query -c xfce4-panel -p /plugins/plugin-5 -n -t string -s systray
         xfconf-query -c xfce4-panel -p /plugins/plugin-5/square-icons -n -t bool -s true
+        xfconf-query -c xfce4-panel -p /plugins/plugin-5/icon-size -n -t int -s 22
 
         xfconf-query -c xfce4-panel -p /plugins/plugin-6 -n -t string -s notification-plugin
         xfconf-query -c xfce4-panel -p /plugins/plugin-7 -n -t string -s power-manager-plugin
