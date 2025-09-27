@@ -61,7 +61,7 @@ Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes, configuracio
 - [x] 15. Configurar redshift
 - [x] 16. Configurar brillo
 - [x] 17. Configurar shell
-- [ ] 18. Personalizar Xfce
+- [x] 18. Personalizar Xfce
 
 ## Herramientas
 - [IT-TOOLS](https://github.com/CorentinTh/it-tools): [ASCII Art Text Generator](https://it-tools.tech/ascii-text-drawer), fuente ANSI Shadow, utilizado en texto de bienvenida y despedida.
