@@ -24,6 +24,9 @@ Script que instala [Xfce](https://www.xfce.org/) mínimo, paquetes y configuraci
     sh auto-xfce.sh
     ```
 
+> [!TIP]
+> Utiliza [personalizar-xfce.sh](https://github.com/AlexGracia/Personalizar-xfce) para personalizar Xfce.
+
 ## Características
 - [x] 1. Comprobaciones iniciales
 - [x] 2. Elegir opcion
