@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Descripcion: Script que instala Xfce mínimo, paquetes, configuraciones y personalizaciones.
+# Descripcion: Script que instala Xfce mínimo, paquetes y configuraciones.
 # Autor: Alex Gracia
 # Version: 0.17.3
 # Requisitos: paqueteria APT, conexion de red, usuario root y paquete wget
