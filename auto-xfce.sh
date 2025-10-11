@@ -661,7 +661,7 @@ _configurar_redshift () {
 
     echo "[redshift]" >> "$archivo"
     echo "temp-day=5780" >> "$archivo"
-    echo "temp-night=5780" >> "$archivo"
+    echo "temp-night=3780" >> "$archivo"
     echo "fade=0" >> "$archivo"
     echo "gamma=0.8" >> "$archivo"
     echo "location-provider=manual" >> "$archivo"
