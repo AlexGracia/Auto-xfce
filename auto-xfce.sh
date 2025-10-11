@@ -283,6 +283,11 @@ _configurar_seguridad () {
     # Configurar ufw.
     ufw default deny incoming
     ufw default deny outgoing
+    # loopback
+    ufw allow in on lo
+    ufw allow out on lo
+    # NTP
+    ufw limit out 123/udp
     ufw allow out 'WWW Full'
     ufw allow out DNS
     ufw enable
