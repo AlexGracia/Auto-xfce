@@ -20,7 +20,7 @@ _ayuda () {
     echo
     echo "Modo de empleo: sh auto-xfce.sh [OPCIÓN]"
     echo
-    echo "Instala Xfce mínimo, paquetes, configuraciones y personalizaciones."
+    echo "Instala Xfce mínimo, paquetes y configuraciones."
     echo
     echo "Opciones:"
     echo "  f             uso frecuente y desatendido (predeterminado)"
@@ -517,6 +517,7 @@ _configurar_bashrc () {
 
     # 1. Usuario root.
     echo "export PS1='\n\[\033[38;5;196m\]\[$(tput sgr0)\] ( \[\033[38;5;45m\]\w\[$(tput sgr0)\] ) \[\033[38;5;246m\]\$?\[$(tput sgr0)\]: '" >> ~/$archivo
+    echo "export TMOUT=60" >> ~/$archivo
 
     if [ $? != 0 ]; then
         _error
